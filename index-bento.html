@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="楊雅喬 Grace Yang - 前端開發者，3.5年 Vue.js/Nuxt.js 實戰經驗">
+    <meta name="author" content="Grace Yang">
+    <title>Grace Yang | Bento Grid</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style-bento.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans overflow-hidden">
+
+    <!-- Top Bar -->
+    <div class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800 px-6 py-3">
+        <div class="flex justify-between items-center">
+            <h1 class="text-lg font-bold">Grace Yang</h1>
+            <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-800 transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Bento Grid Container -->
+    <div class="h-screen pt-16 p-6 overflow-auto">
+        <div class="max-w-7xl mx-auto bento-grid gap-4">
+
+            <!-- Hero Box (Large) -->
+            <div class="bento-box hero-box bg-gradient-to-br from-blue-600 to-purple-600 cursor-pointer" data-section="hero">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">楊雅喬</h2>
+                <p class="text-xl mb-2">Grace Yang</p>
+                <p class="text-sm opacity-90">Web Developer / 前端開發者</p>
+                <p class="text-sm mt-4 opacity-80">3.5 年 Vue.js/Nuxt.js 實戰經驗</p>
+            </div>
+
+            <!-- About Box -->
+            <div class="bento-box about-box bg-gray-800/50 border border-gray-700 cursor-pointer" data-section="about">
+                <div class="text-2xl mb-2">👋</div>
+                <h3 class="text-xl font-semibold mb-2 text-blue-400">About Me</h3>
+                <p class="text-sm text-gray-400">點擊了解更多關於我的背景與專業</p>
+            </div>
+
+            <!-- Experience Box -->
+            <div class="bento-box experience-box bg-gray-800/50 border border-gray-700 cursor-pointer" data-section="experience">
+                <div class="text-2xl mb-2">💼</div>
+                <h3 class="text-xl font-semibold mb-2 text-blue-400">Experience</h3>
+                <p class="text-sm text-gray-400">3.5 年工作經歷</p>
+                <p class="text-xs text-gray-500 mt-2">台灣知識庫、竹冶設計</p>
+            </div>
+
+            <!-- Project 1 -->
+            <div class="bento-box project-box bg-gray-800/50 border border-gray-700 cursor-pointer" data-section="project1">
+                <h3 class="text-lg font-semibold mb-2 text-blue-400">VisCN Kit</h3>
+                <p class="text-xs text-gray-400 mb-3">D3.js 圖表元件庫</p>
+                <div class="flex flex-wrap gap-1">
+                    <span class="tag-sm">D3.js</span>
+                    <span class="tag-sm">TypeScript</span>
+                    <span class="tag-sm">CLI</span>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="bento-box project-box bg-gray-800/50 border border-gray-700 cursor-pointer" data-section="project2">
+                <h3 class="text-lg font-semibold mb-2 text-blue-400">電商後台</h3>
+                <p class="text-xs text-gray-400 mb-3">企業級管理平台</p>
+                <div class="flex flex-wrap gap-1">
+                    <span class="tag-sm">Vue 3</span>
+                    <span class="tag-sm">React</span>
+                    <span class="tag-sm">Supabase</span>
+                </div>
+            </div>
+
+            <!-- Skills Box -->
+            <div class="bento-box skills-box bg-gray-800/50 border border-gray-700 cursor-pointer" data-section="skills">
+                <div class="text-2xl mb-2">⚡</div>
+                <h3 class="text-lg font-semibold mb-2 text-blue-400">Tech Stack</h3>
+                <div class="flex flex-wrap gap-1">
+                    <span class="tag-sm">Vue.js</span>
+                    <span class="tag-sm">TypeScript</span>
+                    <span class="tag-sm">TailwindCSS</span>
+                </div>
+            </div>
+
+            <!-- Metrics Box 1 -->
+            <div class="bento-box metric-box bg-blue-900/30 border border-blue-500/30">
+                <div class="text-3xl font-bold text-blue-400">40%</div>
+                <p class="text-xs text-gray-400 mt-1">開發效率提升</p>
+            </div>
+
+            <!-- Metrics Box 2 -->
+            <div class="bento-box metric-box bg-purple-900/30 border border-purple-500/30">
+                <div class="text-3xl font-bold text-purple-400">8人</div>
+                <p class="text-xs text-gray-400 mt-1">團隊規模</p>
+            </div>
+
+            <!-- Metrics Box 3 -->
+            <div class="bento-box metric-box bg-green-900/30 border border-green-500/30">
+                <div class="text-3xl font-bold text-green-400">30%</div>
+                <p class="text-xs text-gray-400 mt-1">時間縮短</p>
+            </div>
+
+            <!-- Contact Box -->
+            <div class="bento-box contact-box bg-gray-800/50 border border-gray-700 cursor-pointer" data-section="contact">
+                <div class="text-2xl mb-2">📧</div>
+                <h3 class="text-lg font-semibold mb-2 text-blue-400">Contact</h3>
+                <p class="text-xs text-gray-400">chiaoyyc@gmail.com</p>
+                <p class="text-xs text-gray-400 mt-1">GitHub • LinkedIn</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="script-bento.js"></script>
+</body>
+</html>
