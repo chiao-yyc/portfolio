@@ -695,3 +695,283 @@ body.light-mode .project-tab.active {
         page-break-inside: avoid;
     }
 }
+
+/* ========================================
+   Horizontal Scrolling Experience Timeline
+   ======================================== */
+
+/* Experience Wrapper - Creates virtual scroll space */
+.experience-wrapper {
+    position: relative;
+    /* Height will be set dynamically by JavaScript */
+}
+
+/* Experience Section - Sticky Position for Scroll Hijacking */
+.experience-horizontal-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Scroll Container with Snap */
+.experience-scroll-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+
+    /* Snap Scrolling */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
+}
+
+.experience-scroll-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* Timeline Wrapper */
+.experience-timeline-wrapper {
+    position: relative;
+    min-width: max-content;
+    min-height: 500px;
+    padding: 3rem 0;
+}
+
+/* Horizontal Timeline Line */
+.timeline-line-horizontal {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, #3b82f6, #6b7280, #6b7280);
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+/* Experience Items Container */
+.experience-items-horizontal {
+    display: flex;
+    gap: 8rem;
+    /* Padding will be set dynamically by JavaScript to center first and last cards */
+    padding: 0;
+    position: relative;
+    z-index: 2;
+}
+
+/* Individual Experience Item with Snap */
+.experience-item-horizontal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 400px;
+    max-width: 400px;
+    flex-shrink: 0;
+
+    /* Snap to center */
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+}
+
+/* Timeline Dot */
+.timeline-dot-horizontal {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.8);
+    transition: all 0.3s ease;
+}
+
+.experience-item-horizontal:hover .timeline-dot-horizontal {
+    transform: translate(-50%, -50%) scale(1.3);
+    box-shadow: 0 0 0 4px rgba(75, 85, 99, 0.8);
+}
+
+/* Active State - Centered Card */
+.experience-item-horizontal.active .timeline-dot-horizontal {
+    background-color: #3b82f6 !important;
+    box-shadow: 0 0 12px 4px rgba(59, 130, 246, 0.7);
+}
+
+.experience-item-horizontal.active .experience-period {
+    color: #60a5fa !important;
+}
+
+/* Experience Card */
+.experience-card {
+    background-color: rgba(31, 41, 55, 0.5);
+    border: 1px solid rgba(75, 85, 99, 0.5);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-top: 9rem;
+    transition: all 0.3s ease;
+}
+
+.experience-item-horizontal:hover .experience-card {
+    background-color: rgba(31, 41, 55, 0.8);
+    border-color: rgba(59, 130, 246, 0.5);
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+}
+
+/* Experience Period (Above Timeline) */
+.experience-period {
+    position: absolute;
+    top: calc(30% - 4rem);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    z-index: 3;
+}
+
+/* Education Item - Minimal Card Style */
+.education-item .experience-card {
+    background-color: transparent;
+    border: none;
+    padding: 1rem 2rem;
+    margin-top: 9rem;
+}
+
+/* Remove hover effect for education */
+.education-item:hover .experience-card {
+    background-color: transparent;
+    border: none;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Scroll Hint */
+.scroll-hint {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Light Mode Adjustments */
+body.light-mode .timeline-line-horizontal {
+    background: linear-gradient(to right, #2563eb, #9ca3af, #9ca3af);
+}
+
+body.light-mode .timeline-dot-horizontal {
+    box-shadow: 0 0 0 3px rgba(229, 231, 235, 0.9);
+}
+
+body.light-mode .experience-item-horizontal:hover .timeline-dot-horizontal {
+    box-shadow: 0 0 0 4px rgba(156, 163, 175, 0.9);
+}
+
+body.light-mode .experience-card {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-color: #e5e7eb;
+}
+
+body.light-mode .experience-item-horizontal:hover .experience-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+}
+
+body.light-mode .experience-item-horizontal.active .timeline-dot-horizontal {
+    background-color: #2563eb !important;
+    box-shadow: 0 0 12px 4px rgba(37, 99, 235, 0.6);
+}
+
+body.light-mode .experience-item-horizontal.active .experience-period {
+    color: #2563eb !important;
+}
+
+body.light-mode .education-item .experience-card {
+    background-color: transparent;
+    border: none;
+}
+
+body.light-mode .education-item:hover .experience-card {
+    background-color: transparent;
+    border: none;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Responsive: Mobile/Tablet Vertical Layout */
+@media (max-width: 1024px) {
+    /* Disable horizontal scroll on mobile */
+    .experience-wrapper {
+        height: auto !important; /* Override JS-set height */
+    }
+
+    .experience-horizontal-section {
+        position: relative; /* Disable sticky */
+        min-height: auto;
+        height: auto;
+        padding: 5rem 0;
+    }
+
+    .experience-scroll-container {
+        overflow-x: visible;
+        overflow-y: visible;
+    }
+
+    .experience-timeline-wrapper {
+        min-width: 100%;
+    }
+
+    .timeline-line-horizontal {
+        display: none;
+    }
+
+    .experience-items-horizontal {
+        flex-direction: column;
+        gap: 3rem;
+        padding: 0;
+    }
+
+    .experience-item-horizontal {
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    .timeline-dot-horizontal {
+        display: none;
+    }
+
+    .experience-card {
+        margin-top: 0;
+    }
+
+    .experience-period {
+        position: static;
+        transform: none;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Education card on mobile - keep minimal */
+    .education-item .experience-card {
+        margin-top: 0;
+        padding: 0.5rem 0;
+    }
+
+    .scroll-hint {
+        display: none;
+    }
+}

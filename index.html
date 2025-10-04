@@ -484,80 +484,111 @@
         </div>
     </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="py-20 border-t border-gray-800">
-        <div class="container mx-auto px-6">
-            <h2 class="section-title">Experience</h2>
+    <!-- Experience Section - Horizontal Scroll -->
+    <div id="experience-wrapper" class="experience-wrapper">
+    <section id="experience" class="experience-horizontal-section border-t border-gray-800">
+        <div class="container mx-auto px-6 h-full flex flex-col justify-center">
+            <h2 class="section-title mb-8">Experience</h2>
 
-            <div class="max-w-4xl mx-auto space-y-12">
-                <!-- Experience Item 1 -->
-                <div class="relative pl-8 border-l-2 border-blue-600">
-                    <div class="absolute -left-2 top-0 w-4 h-4 bg-blue-600 rounded-full"></div>
+            <!-- Scroll Hint -->
+            <div class="text-center text-gray-500 text-sm scroll-hint">
+                <span>scrolling →</span>
+            </div>
 
-                    <div class="mb-2">
-                        <h3 class="text-xl font-semibold">資深前端工程師 / 組長</h3>
-                        <p class="text-gray-400 text-sm">台灣知識庫股份有限公司</p>
-                        <p class="text-gray-500 text-xs mt-1">2020/12 - 2024/06</p>
+            <!-- Horizontal Timeline Container -->
+            <div id="experience-scroll-container" class="experience-scroll-container">
+                <div class="experience-timeline-wrapper">
+                    <!-- Timeline Line -->
+                    <div class="timeline-line-horizontal"></div>
+
+                    <!-- Experience Items -->
+                    <div class="experience-items-horizontal">
+                        <!-- Experience Item 1 -->
+                        <div class="experience-item-horizontal">
+                            <div class="timeline-dot-horizontal bg-gray-700"></div>
+                            <div class="experience-period text-gray-500">2020/12 - 2024/06</div>
+                            <div class="experience-card">
+                                <h3 class="text-xl font-semibold">資深前端工程師 / 組長</h3>
+                                <p class="text-gray-400 text-sm mt-1">台灣知識庫股份有限公司</p>
+
+                                <ul class="space-y-2 text-sm text-gray-300 mt-4">
+                                    <li class="flex items-start">
+                                        <span class="text-blue-400 mr-2">•</span>
+                                        <span>主導從開發到部署的完整流程，管理多個同時進行的專案</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-blue-400 mr-2">•</span>
+                                        <span>擔任團隊技術負責人，提供技術指導並解決棘手問題，同時負責新進人員培訓</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-blue-400 mr-2">•</span>
+                                        <span>參與數據分析專案，透過流量分析與視覺化圖表，將數據洞察轉化為產品優化策略</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Education Item 1 - PHP Course -->
+                        <div class="experience-item-horizontal education-item">
+                            <div class="timeline-dot-horizontal bg-gray-700"></div>
+                            <div class="experience-period text-gray-500">2020/3 - 2020/8</div>
+                            <div class="experience-card">
+                                <p class="text-sm text-gray-400">勞動部勞動力發展署 · PHP資料庫網頁設計課程</p>
+                            </div>
+                        </div>
+
+                        <!-- Experience Item 2 -->
+                        <div class="experience-item-horizontal">
+                            <div class="timeline-dot-horizontal bg-gray-700"></div>
+                            <div class="experience-period text-gray-500">2019/04 - 2019/10</div>
+                            <div class="experience-card">
+                                <h3 class="text-xl font-semibold">專案企劃</h3>
+                                <p class="text-gray-400 text-sm mt-1">竹冶聯合設計工作室</p>
+
+                                <ul class="space-y-2 text-sm text-gray-300 mt-4">
+                                    <li class="flex items-start">
+                                        <span class="text-blue-400 mr-2">•</span>
+                                        <span>參與地方創生與文化資產專案，負責從提案到資源協調的完整流程</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-blue-400 mr-2">•</span>
+                                        <span>協調政府、地方組織與居民等多方利害關係人，確保專案順利執行</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Experience Item 3 -->
+                        <div class="experience-item-horizontal">
+                            <div class="timeline-dot-horizontal bg-gray-700"></div>
+                            <div class="experience-period text-gray-500">2017/06 - 2018/11</div>
+                            <div class="experience-card">
+                                <h3 class="text-xl font-semibold">Supervisor</h3>
+                                <p class="text-gray-400 text-sm mt-1">MOUNT BULLER CHALET HOTEL / ECOF SERVICE Pty Ltd</p>
+
+                                <ul class="space-y-2 text-sm text-gray-300 mt-4">
+                                    <li class="flex items-start">
+                                        <span class="text-blue-400 mr-2">•</span>
+                                        <span>兩次擔任團隊主管，帶領 15 人跨文化團隊，負責工作分配、進度控管與危機處理</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Education Item 2 - University -->
+                        <div class="experience-item-horizontal education-item">
+                            <div class="timeline-dot-horizontal bg-gray-700"></div>
+                            <div class="experience-period text-gray-500">2012 - 2017</div>
+                            <div class="experience-card">
+                                <p class="text-sm text-gray-400">東海大學 · 景觀學系 學士</p>
+                            </div>
+                        </div>
                     </div>
-
-                    <ul class="space-y-2 text-sm text-gray-300 mt-4">
-                        <li class="flex items-start">
-                            <span class="text-blue-400 mr-2">•</span>
-                            <span>主導從開發到部署的完整流程，管理多個同時進行的專案</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-blue-400 mr-2">•</span>
-                            <span>擔任團隊技術負責人，提供技術指導並解決棘手問題，同時負責新進人員培訓</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-blue-400 mr-2">•</span>
-                            <span>參與數據分析專案，透過流量分析與視覺化圖表，將數據洞察轉化為產品優化策略</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Experience Item 2 -->
-                <div class="relative pl-8 border-l-2 border-gray-700">
-                    <div class="absolute -left-2 top-0 w-4 h-4 bg-gray-700 rounded-full"></div>
-
-                    <div class="mb-2">
-                        <h3 class="text-xl font-semibold">專案企劃</h3>
-                        <p class="text-gray-400 text-sm">竹冶聯合設計工作室</p>
-                        <p class="text-gray-500 text-xs mt-1">2019/04 - 2019/10</p>
-                    </div>
-
-                    <ul class="space-y-2 text-sm text-gray-300 mt-4">
-                        <li class="flex items-start">
-                            <span class="text-blue-400 mr-2">•</span>
-                            <span>參與地方創生與文化資產專案，負責從提案到資源協調的完整流程</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-blue-400 mr-2">•</span>
-                            <span>協調政府、地方組織與居民等多方利害關係人，確保專案順利執行</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Experience Item 3 -->
-                <div class="relative pl-8 border-l-2 border-gray-700">
-                    <div class="absolute -left-2 top-0 w-4 h-4 bg-gray-700 rounded-full"></div>
-
-                    <div class="mb-2">
-                        <h3 class="text-xl font-semibold">Supervisor</h3>
-                        <p class="text-gray-400 text-sm">MOUNT BULLER CHALET HOTEL / ECOF SERVICE Pty Ltd</p>
-                        <p class="text-gray-500 text-xs mt-1">2017/06 - 2018/11</p>
-                    </div>
-
-                    <ul class="space-y-2 text-sm text-gray-300 mt-4">
-                        <li class="flex items-start">
-                            <span class="text-blue-400 mr-2">•</span>
-                            <span>兩次擔任團隊主管，帶領 15 人跨文化團隊，負責工作分配、進度控管與危機處理</span>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
     </section>
+    </div><!-- End experience-wrapper -->
 
     <!-- Projects Section -->
     <section id="projects" class="py-20 border-t border-gray-800">

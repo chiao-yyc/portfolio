@@ -157,3 +157,146 @@ projectTabs.forEach(tab => {
         }
     });
 });
+
+// ========================================
+// Horizontal Scrolling Experience Timeline
+// New Approach: Virtual Scroll Height
+// ========================================
+
+(function() {
+    // Only enable on desktop (screen width > 1024px)
+    if (window.innerWidth <= 1024) {
+        return;
+    }
+
+    const wrapper = document.getElementById('experience-wrapper');
+    const experienceSection = document.getElementById('experience');
+    const scrollContainer = document.getElementById('experience-scroll-container');
+    const itemsContainer = document.querySelector('.experience-items-horizontal');
+
+    if (!wrapper || !experienceSection || !scrollContainer || !itemsContainer) {
+        return;
+    }
+
+    // Calculate horizontal scroll distance and setup snap scrolling
+    function setupScrollHeight() {
+        // Calculate padding to center first and last cards
+        const containerWidth = scrollContainer.clientWidth;
+        const cardWidth = 400; // Fixed card width from CSS
+        const sidePadding = (containerWidth - cardWidth) / 2;
+
+        // Set dynamic padding for snap-to-center effect
+        itemsContainer.style.paddingLeft = `${sidePadding}px`;
+        itemsContainer.style.paddingRight = `${sidePadding}px`;
+
+        // Calculate horizontal scroll distance
+        const horizontalScrollWidth = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+        // Set wrapper height = viewport height + horizontal scroll distance
+        // This creates virtual vertical scroll space for horizontal movement
+        const virtualHeight = window.innerHeight + horizontalScrollWidth;
+        wrapper.style.height = `${virtualHeight}px`;
+
+        console.log('✅ 水平滾動初始化（含磁吸居中）:', {
+            containerWidth,
+            cardWidth,
+            sidePadding,
+            horizontalScrollWidth,
+            virtualHeight,
+            viewportHeight: window.innerHeight
+        });
+    }
+
+    // Handle scroll - sync vertical scroll to horizontal position
+    function handleScroll() {
+        const wrapperRect = wrapper.getBoundingClientRect();
+        const wrapperTop = wrapperRect.top;
+        const wrapperHeight = wrapperRect.height;
+
+        // Only activate when wrapper is in view
+        if (wrapperTop > 0 || wrapperRect.bottom < window.innerHeight) {
+            return;
+        }
+
+        // Calculate scroll progress (0 to 1)
+        const scrollProgress = Math.abs(wrapperTop) / (wrapperHeight - window.innerHeight);
+        const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
+
+        // Map progress to horizontal scroll position
+        const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+        scrollContainer.scrollLeft = clampedProgress * maxScrollLeft;
+
+        // Hide scroll hint after scroll starts
+        if (clampedProgress > 0.01) {
+            const scrollHint = experienceSection.querySelector('.scroll-hint');
+            if (scrollHint) {
+                scrollHint.style.opacity = '0';
+                scrollHint.style.transition = 'opacity 0.3s ease';
+            }
+        }
+
+        // Detect centered card and activate its dot
+        updateActiveDot();
+    }
+
+    // Update active dot based on centered card
+    function updateActiveDot() {
+        const items = document.querySelectorAll('.experience-item-horizontal');
+        if (items.length === 0) return;
+
+        // Calculate container center
+        const containerRect = scrollContainer.getBoundingClientRect();
+        const containerCenter = containerRect.left + containerRect.width / 2;
+
+        let closestItem = null;
+        let minDistance = Infinity;
+
+        // Find the card closest to container center
+        items.forEach(item => {
+            const itemRect = item.getBoundingClientRect();
+            const itemCenter = itemRect.left + itemRect.width / 2;
+            const distance = Math.abs(itemCenter - containerCenter);
+
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestItem = item;
+            }
+        });
+
+        // Update active states
+        items.forEach(item => {
+            if (item === closestItem) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+
+    // Initialize
+    setupScrollHeight();
+    updateActiveDot(); // Set initial active state
+
+    // Listen to scroll events
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Recalculate on window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 1024) {
+            setupScrollHeight();
+        }
+    });
+
+    // Smooth entrance animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                scrollContainer.style.opacity = '1';
+                scrollContainer.style.transition = 'opacity 0.6s ease';
+            }
+        });
+    }, { threshold: 0.2 });
+
+    observer.observe(experienceSection);
+
+})();
