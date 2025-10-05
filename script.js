@@ -284,6 +284,11 @@ projectTabs.forEach(tab => {
     window.addEventListener('resize', () => {
         if (window.innerWidth > 1024) {
             setupScrollHeight();
+        } else {
+            // Clean up desktop styles when switching to mobile
+            wrapper.style.height = '';
+            itemsContainer.style.paddingLeft = '';
+            itemsContainer.style.paddingRight = '';
         }
     });
 
