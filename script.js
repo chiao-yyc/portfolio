@@ -395,9 +395,6 @@ projectTabs.forEach(tab => {
                 scrollHint.style.transition = 'opacity 0.3s ease';
             }
         }
-
-        // Detect centered card and activate its dot
-        updateActiveDot();
     }
 
     // Update active dot based on centered card
@@ -440,6 +437,9 @@ projectTabs.forEach(tab => {
 
     // Listen to scroll events
     window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Update active dot when horizontal scroll ends (after snap completes)
+    scrollContainer.addEventListener('scrollend', updateActiveDot, { passive: true });
 
     // Recalculate on window resize
     window.addEventListener('resize', () => {

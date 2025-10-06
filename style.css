@@ -907,6 +907,7 @@ body.light-mode .skills-tab.active {
     font-weight: 600;
     white-space: nowrap;
     z-index: 3;
+    transition: color 0.3s ease;
 }
 
 /* Education Item - Minimal Card Style */
@@ -1093,6 +1094,11 @@ body.light-mode .education-item:hover .experience-card {
         margin-bottom: 0;
     }
 
+    /* Work experience hover effect for mobile - reduce translateY */
+    .experience-item-horizontal:hover .experience-card {
+        transform: translateY(-4px);
+    }
+
     /* Education items - minimal style */
     .education-item .experience-period {
         background-color: rgba(156, 163, 175, 0.15);
@@ -1110,6 +1116,14 @@ body.light-mode .education-item:hover .experience-card {
     .education-item .experience-card p {
         font-size: 0.875rem;
         color: #9ca3af;
+    }
+
+    /* Education item hover effect for mobile */
+    .education-item:hover .experience-card {
+        border: 1px solid rgba(59, 130, 246, 0.4);
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+        transform: none;
+        background-color: transparent;
     }
 
     .scroll-hint {
@@ -1142,6 +1156,14 @@ body.light-mode .education-item:hover .experience-card {
 
     body.light-mode .education-item .experience-card p {
         color: #6b7280;
+    }
+
+    /* Education item hover effect for mobile - light mode */
+    body.light-mode .education-item:hover .experience-card {
+        border: 1px solid rgba(37, 99, 235, 0.4);
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+        transform: none;
+        background-color: rgba(249, 250, 251, 0.5);
     }
 }
 
