@@ -198,14 +198,28 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="py-20 border-t border-gray-800">
+    <!-- Skills Section with Scroll Hijacking -->
+    <div id="skills-wrapper" class="skills-wrapper">
+    <section id="skills" class="skills-sticky-section py-20 border-t border-gray-800">
         <div class="container mx-auto px-6">
             <h2 class="section-title">Technical Skills</h2>
 
-            <div class="max-w-5xl mx-auto">
-                <!-- Tech Stack Grid -->
-                <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <!-- Tab Navigation -->
+            <div class="max-w-6xl mx-auto mb-8">
+                <div class="flex justify-center gap-4 border-b border-gray-700">
+                    <button class="skills-tab active px-6 py-3 font-semibold text-sm transition-all" data-tab="core">
+                        Core Development
+                    </button>
+                    <button class="skills-tab px-6 py-3 font-semibold text-sm transition-all" data-tab="advanced">
+                        Advanced Skills
+                    </button>
+                </div>
+            </div>
+
+            <div class="max-w-6xl mx-auto">
+                <!-- Tab 1: Core Development -->
+                <div class="skills-tab-content" id="core-skills">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                     <!-- Frontend -->
                     <div class="bg-gray-800/30 border border-gray-700 rounded-lg p-6">
                         <h3 class="text-lg font-semibold mb-4 text-blue-400 flex items-center gap-2">
@@ -229,7 +243,7 @@
                                 <span class="text-xs px-2 py-0.5 bg-green-600/20 border border-green-500/50 rounded text-green-300">Intermediate</span>
                             </div>
                             <div class="text-gray-400 text-xs mt-3">
-                                TailwindCSS · shadcn/ui · D3.js · Chart.js
+                                HTML5 · CSS3/Sass · TailwindCSS · Element UI
                             </div>
                         </div>
                     </div>
@@ -253,40 +267,111 @@
                                 <span class="text-xs px-2 py-0.5 bg-green-600/20 border border-green-500/50 rounded text-green-300">Intermediate</span>
                             </div>
                             <div class="text-gray-400 text-xs mt-3">
-                                Git · Vite · Vitest · Docker · CI/CD
+                                Git · Vite · Docker · CI/CD · RESTful API
                             </div>
                         </div>
                     </div>
 
-                    <!-- Leadership -->
+                    <!-- State Management -->
                     <div class="bg-gray-800/30 border border-gray-700 rounded-lg p-6">
                         <h3 class="text-lg font-semibold mb-4 text-blue-400 flex items-center gap-2">
-                            <span>👥</span> Leadership
+                            <span>🔄</span> State Management
                         </h3>
-                        <div class="space-y-2 text-sm text-gray-300">
-                            <div class="flex items-start gap-2">
-                                <span class="text-blue-400">•</span>
-                                <span>專案管理與協調</span>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-300">Vuex</span>
+                                <span class="text-xs px-2 py-0.5 bg-blue-600/20 border border-blue-500/50 rounded text-blue-300">Expert</span>
                             </div>
-                            <div class="flex items-start gap-2">
-                                <span class="text-blue-400">•</span>
-                                <span>團隊建立與培訓</span>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-300">Pinia</span>
+                                <span class="text-xs px-2 py-0.5 bg-blue-600/20 border border-blue-500/50 rounded text-blue-300">Expert</span>
                             </div>
-                            <div class="flex items-start gap-2">
-                                <span class="text-blue-400">•</span>
-                                <span>技術決策與架構設計</span>
-                            </div>
-                            <div class="flex items-start gap-2">
-                                <span class="text-blue-400">•</span>
-                                <span>跨部門溝通協作</span>
+                            <div class="text-gray-400 text-xs mt-3">
+                                Composition API · Reactive Data Flow
                             </div>
                         </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Advanced Skills -->
+                <div class="skills-tab-content hidden" id="advanced-skills">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                    <!-- Architecture & Design -->
+                    <div class="bg-gray-800/30 border border-gray-700 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-blue-400 flex items-center gap-2">
+                            <span>🏗️</span> Architecture & Design
+                        </h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-300">Component Library</span>
+                                <span class="text-xs px-2 py-0.5 bg-blue-600/20 border border-blue-500/50 rounded text-blue-300">Expert</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-300">Design System</span>
+                                <span class="text-xs px-2 py-0.5 bg-blue-600/20 border border-blue-500/50 rounded text-blue-300">Expert</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-300">Monorepo</span>
+                                <span class="text-xs px-2 py-0.5 bg-green-600/20 border border-green-500/50 rounded text-green-300">Intermediate</span>
+                            </div>
+                            <div class="text-gray-400 text-xs mt-3">
+                                Modular Architecture · CLI Tools
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Visualization -->
+                    <div class="bg-gray-800/30 border border-gray-700 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-blue-400 flex items-center gap-2">
+                            <span>📊</span> Data Visualization
+                        </h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-300">D3.js</span>
+                                <span class="text-xs px-2 py-0.5 bg-blue-600/20 border border-blue-500/50 rounded text-blue-300">Expert</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-300">Chart.js</span>
+                                <span class="text-xs px-2 py-0.5 bg-blue-600/20 border border-blue-500/50 rounded text-blue-300">Expert</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-300">Unovis</span>
+                                <span class="text-xs px-2 py-0.5 bg-green-600/20 border border-green-500/50 rounded text-green-300">Intermediate</span>
+                            </div>
+                            <div class="text-gray-400 text-xs mt-3">
+                                Dashboard Development · Interactive Charts
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testing & Documentation -->
+                    <div class="bg-gray-800/30 border border-gray-700 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-blue-400 flex items-center gap-2">
+                            <span>🧪</span> Testing & Documentation
+                        </h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-300">Vitest</span>
+                                <span class="text-xs px-2 py-0.5 bg-green-600/20 border border-green-500/50 rounded text-green-300">Intermediate</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-300">Playwright</span>
+                                <span class="text-xs px-2 py-0.5 bg-green-600/20 border border-green-500/50 rounded text-green-300">Intermediate</span>
+                            </div>
+                            <div class="text-gray-400 text-xs mt-3">
+                                Storybook · VitePress · Technical Writing
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
 
                 <!-- Certificates -->
-                <div class="bg-gray-800/20 border border-gray-700 rounded-lg p-6">
-                    <h3 class="text-lg font-semibold mb-4 text-blue-400">🎓 Certificates</h3>
+                <div class="bg-gray-800/30 border border-gray-700 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold mb-4 text-blue-400 flex items-center gap-2">
+                        <span>🎓</span> Certificates
+                    </h3>
                     <div class="grid md:grid-cols-2 gap-3 text-sm text-gray-300">
                         <div class="flex items-center gap-2">
                             <span class="text-blue-400">✓</span>
@@ -301,6 +386,7 @@
             </div>
         </div>
     </section>
+    </div><!-- End skills-wrapper -->
 
     <!-- About Section -->
     <section id="about" class="py-20 border-t border-gray-800">
@@ -434,7 +520,31 @@
                         </div>
                     </div>
 
-                    <!-- Competency 6: Data-Driven Mindset -->
+                    <!-- Competency 6: Project Management -->
+                    <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700 hover:border-blue-500/50 transition-all">
+                        <div class="text-3xl mb-4">📋</div>
+                        <h4 class="text-lg font-semibold mb-3 text-blue-400">專案管理</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-start">
+                                <span class="text-blue-400 mr-2">•</span>
+                                <span class="text-gray-300">專案管理與協調</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-blue-400 mr-2">•</span>
+                                <span class="text-gray-300">團隊建立與培訓</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-blue-400 mr-2">•</span>
+                                <span class="text-gray-300">技術決策與架構設計</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-blue-400 mr-2">•</span>
+                                <span class="text-gray-300">跨部門溝通協作</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Competency 7: Data-Driven Mindset -->
                     <div class="bg-gray-800/50 p-6 rounded-lg border border-gray-700 hover:border-blue-500/50 transition-all">
                         <div class="text-3xl mb-4">📈</div>
                         <h4 class="text-lg font-semibold mb-3 text-blue-400">數據思維</h4>

@@ -159,6 +159,167 @@ projectTabs.forEach(tab => {
 });
 
 // ========================================
+// Skills Tab with Scroll Hijacking
+// ========================================
+
+(function() {
+    // Only enable on desktop (screen width > 1024px)
+    if (window.innerWidth <= 1024) {
+        // Mobile: Use simple tab switching
+        const skillsTabs = document.querySelectorAll('.skills-tab');
+        const skillsContents = document.querySelectorAll('.skills-tab-content');
+
+        skillsTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.getAttribute('data-tab');
+
+                skillsTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                skillsContents.forEach(content => content.classList.add('hidden'));
+                const targetContent = document.getElementById(`${targetTab}-skills`);
+                if (targetContent) targetContent.classList.remove('hidden');
+            });
+        });
+        return;
+    }
+
+    const wrapper = document.getElementById('skills-wrapper');
+    const skillsSection = document.getElementById('skills');
+    const skillsTabs = document.querySelectorAll('.skills-tab');
+    const skillsContents = document.querySelectorAll('.skills-tab-content');
+
+    let currentSkillsTab = 'core';
+    let switchTimeout = null;  // Track delay timer
+    let isSwitching = false;   // Lock scroll during switch
+
+    if (!wrapper || !skillsSection) return;
+
+    // Setup virtual scroll height
+    function setupScrollHeight() {
+        // Virtual height = viewport height × 2.5
+        const virtualHeight = window.innerHeight * 2.5;
+        wrapper.style.height = `${virtualHeight}px`;
+
+        console.log('✅ Skills scroll hijacking initialized:', {
+            virtualHeight,
+            viewportHeight: window.innerHeight
+        });
+    }
+
+    // Function to switch tab with transition delay
+    function switchSkillsTab(tabName) {
+        if (currentSkillsTab === tabName || isSwitching) return;
+
+        currentSkillsTab = tabName;
+        isSwitching = true;  // Lock scroll during switch
+
+        // Step 1: Fade out current content (keep space with opacity)
+        skillsContents.forEach(content => {
+            content.style.opacity = '0';
+        });
+
+        // Step 2: Wait for blank space delay
+        setTimeout(() => {
+            // Step 3: Update tab buttons
+            skillsTabs.forEach(tab => {
+                if (tab.getAttribute('data-tab') === tabName) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            // Step 4: Hide old content and show new content
+            skillsContents.forEach(content => {
+                if (content.id === `${tabName}-skills`) {
+                    content.classList.remove('hidden');
+                    // Trigger reflow then fade in
+                    setTimeout(() => {
+                        content.style.opacity = '1';
+
+                        // Step 5: Keep lock for a while to ensure user sees Tab 2
+                        setTimeout(() => {
+                            isSwitching = false;  // Unlock scroll
+                        }, 800);  // Display Tab 2 for at least 800ms
+                    }, 10);
+                } else {
+                    content.classList.add('hidden');
+                }
+            });
+        }, 300);  // 300ms blank delay between tabs
+    }
+
+    // Manual tab click
+    skillsTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetTab = tab.getAttribute('data-tab');
+            switchSkillsTab(targetTab);
+        });
+    });
+
+    // Handle scroll - control tab switching
+    function handleScroll() {
+        // Ignore scroll during switch animation
+        if (isSwitching) return;
+
+        const wrapperRect = wrapper.getBoundingClientRect();
+        const wrapperTop = wrapperRect.top;
+        const wrapperHeight = wrapperRect.height;
+        const viewportHeight = window.innerHeight;
+
+        // Only activate when wrapper is in view
+        if (wrapperTop > 0 || wrapperRect.bottom < viewportHeight) {
+            return;
+        }
+
+        // Calculate scroll progress (0 to 1)
+        const scrollProgress = Math.abs(wrapperTop) / (wrapperHeight - viewportHeight);
+        const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
+
+        // Tab switching logic with delay
+        if (clampedProgress >= 0.5 && currentSkillsTab === 'core') {
+            // Enter switch zone - start delay timer
+            if (!switchTimeout) {
+                switchTimeout = setTimeout(() => {
+                    switchSkillsTab('advanced');
+                    switchTimeout = null;
+                }, 500);  // 500ms delay
+            }
+        } else if (clampedProgress < 0.5 && currentSkillsTab === 'core') {
+            // Left switch zone - cancel delay
+            if (switchTimeout) {
+                clearTimeout(switchTimeout);
+                switchTimeout = null;
+            }
+        } else if (clampedProgress < 0.3 && currentSkillsTab === 'advanced') {
+            // Switch back to tab 1 when scrolling up
+            switchSkillsTab('core');
+            if (switchTimeout) {
+                clearTimeout(switchTimeout);
+                switchTimeout = null;
+            }
+        }
+    }
+
+    // Initialize
+    setupScrollHeight();
+
+    // Listen to scroll events
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Recalculate on window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 1024) {
+            setupScrollHeight();
+        } else {
+            // Clean up desktop styles when switching to mobile
+            wrapper.style.height = '';
+        }
+    });
+})();
+
+// ========================================
 // Horizontal Scrolling Experience Timeline
 // New Approach: Virtual Scroll Height
 // ========================================

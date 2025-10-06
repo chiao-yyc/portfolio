@@ -678,6 +678,77 @@ body.light-mode .project-tab.active {
     border-bottom-color: #2563eb;
 }
 
+/* Skills Tab Styles */
+.skills-tab {
+    color: #9ca3af;
+    border-bottom: 2px solid transparent;
+    position: relative;
+    cursor: pointer;
+}
+
+.skills-tab:hover {
+    color: #3b82f6;
+}
+
+.skills-tab.active {
+    color: #3b82f6;
+    border-bottom-color: #3b82f6;
+}
+
+/* Tab transition */
+.skills-tab-content {
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+body.light-mode .skills-tab {
+    color: #6b7280;
+}
+
+body.light-mode .skills-tab:hover {
+    color: #2563eb;
+}
+
+body.light-mode .skills-tab.active {
+    color: #2563eb;
+    border-bottom-color: #2563eb;
+}
+
+/* ========================================
+   Skills Section Scroll Hijacking
+   ======================================== */
+
+/* Skills Wrapper - Creates virtual scroll space */
+.skills-wrapper {
+    position: relative;
+    /* Height will be set dynamically by JavaScript */
+}
+
+/* Skills Section - Sticky Position for Scroll Hijacking */
+.skills-sticky-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Responsive: Disable sticky on mobile/tablet */
+@media (max-width: 1024px) {
+    .skills-wrapper {
+        position: static;
+        height: auto !important;
+    }
+
+    .skills-sticky-section {
+        height: auto;
+        position: static;
+        overflow: visible;
+    }
+}
+
 /* Print Styles */
 @media print {
     nav,
