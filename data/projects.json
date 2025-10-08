@@ -1,0 +1,154 @@
+{
+  "sideProjects": [
+    {
+      "name": "D3 Component Kit",
+      "period": "2024/06 - 2024/09",
+      "status": "In Progress",
+      "statusColor": "green",
+      "description": "受 shadcn/ui 啟發的 D3.js 圖表元件庫。透過 CLI 工具提供可複製貼上的圖表元件，讓開發者完全掌控程式碼。",
+      "tags": ["D3.js v7", "TypeScript", "CLI", "Chart Library"],
+      "links": {
+        "github": "https://github.com/chiaoyyc",
+        "website": "https://d3comp.yachiaoyang.dev"
+      }
+    },
+    {
+      "name": "電商後台管理平台",
+      "period": "2024/06 - 2024/09",
+      "status": "In Progress",
+      "statusColor": "green",
+      "description": "企業級全端電商後台，Monorepo 架構。包含訂單管理、庫存追蹤、客戶關係管理與數據分析完整功能。",
+      "tags": ["Vue 3", "React", "Supabase", "Monorepo", "shadcn/ui", "System Architecture"],
+      "links": {
+        "github": "https://github.com/chiaoyyc",
+        "website": "https://ecadmin.yachiaoyang.dev"
+      }
+    },
+    {
+      "name": "求職助理系統",
+      "period": "2024/06 - 2024/09",
+      "status": "Completed",
+      "statusColor": "blue",
+      "description": "為求職者打造的智慧管理系統。整合職缺爬蟲、自動化合適度分析與偏好推薦，搭配完整的申請流程追蹤（感興趣 → 申請 → 面試 → 結果），提升求職效率。",
+      "tags": ["Node.js", "JavaScript", "HTML", "Web Scraping", "Automation"],
+      "links": {
+        "github": "",
+        "website": ""
+      }
+    }
+  ],
+  "workProjects": [
+    {
+      "name": "多項創新技術專案",
+      "period": "2024",
+      "company": "台灣知識庫",
+      "isFreelance": false,
+      "roles": ["Team Lead", "PM"],
+      "description": "涵蓋教育科技、社群互動與 AI 應用的多個創新專案群組。整合 OpenAI API 實現智能客服、內容生成與個人化推薦功能。",
+      "tags": ["Vue 3", "Nuxt.js", "OpenAI API", "AI Integration", "DevOps"],
+      "achievements": [
+        "主導專案啟動與功能規劃：線上學習平台、社群平台",
+        "AI 技術整合：SEO 內容生成、智能客服、推薦系統",
+        "協作式領導：引導跨職能團隊思考架構、權衡取捨，作為決策後援"
+      ]
+    },
+    {
+      "name": "教育資源管理平台整合",
+      "period": "2023",
+      "company": "台灣知識庫",
+      "isFreelance": false,
+      "roles": ["Tech Lead", "Frontend Architect"],
+      "description": "大型平台重構專案，整合官方網站、資源網站與管理後台為統一平台。面臨異構資料源整合、前端架構重新設計與大規模資料遷移挑戰。",
+      "tags": ["System Integration", "Legacy Migration", "DevOps"],
+      "achievements": [
+        "整合三個舊平台重構為統一新平台",
+        "前端架構設計與模組化重構",
+        "參與資料整合與遷移策略規劃",
+        "負責完整系統部署架構（Docker Compose 編排後端、前端、資料庫與 Nginx 反向代理）"
+      ]
+    },
+    {
+      "name": "需求派單系統",
+      "period": "2023",
+      "company": "台灣知識庫",
+      "isFreelance": false,
+      "roles": ["PM"],
+      "description": "集中式需求管理平台，將 Excel 與紙本流程轉型為數位化系統。整合簽核流程，建立跨部門協作與需求追蹤機制。",
+      "tags": ["Nuxt.js", "DevOps"],
+      "achievements": [
+        "系統流程規劃與 Wireframe 設計",
+        "前端技術除錯與部署流程建立",
+        "紙本簽核流程數位化整合"
+      ]
+    },
+        {
+      "name": "UI Component 系統",
+      "period": "2023",
+      "company": "台灣知識庫",
+      "isFreelance": false,
+      "roles": ["Tech Lead"],
+      "description": "統一的設計系統與元件庫，提升 30% 開發效率。建立標準化開發流程與文件規範。",
+      "tags": ["Vue 3", "Storybook", "Design System", "DX"],
+      "achievements": [
+        "跨專案可複用元件庫建立",
+        "Storybook 文件與設計規範"
+      ]
+    },
+        {
+      "name": "教室資源系統",
+      "period": "2023",
+      "company": "台灣知識庫",
+      "isFreelance": false,
+      "roles": ["PM", "Frontend"],
+      "description": "內部教室資源管理系統，數位化資源預約與調配流程。需跨部門協作需求收集，並整合多個使用者角色權限。",
+      "tags": ["Vue 3", "Pinia", "Nuxt.js", "Element Plus"],
+      "achievements": [
+        "跨團隊協作需求分析與規劃",
+        "獨立負責前端開發與功能實現"
+      ]
+    },
+    {
+      "name": "直播導購平台",
+      "period": "2023",
+      "company": "台灣知識庫",
+      "isFreelance": false,
+      "roles": ["Full-stack"],
+      "description": "針對中小型商家打造的跨平台直播導購解決方案。整合 YouTube 直播與社群帳號登入，提供即時互動聊天室與商品推送功能。",
+      "tags": ["Vue 3", "Pinia", "WebSocket", "Node.js"],
+      "achievements": [
+        "完整專案獨立交付（需求至開發）",
+        "WebSocket 即時聊天室開發",
+        "YouTube 直播串流整合"
+      ],
+      "image": "./assets/projects/live-shopping.jpg"
+    },
+    {
+      "name": "EDM 成效分析與優化",
+      "period": "2022",
+      "company": "台灣知識庫",
+      "isFreelance": false,
+      "roles": [],
+      "description": "EDM 行銷年度成效分析專案。使用 GA 與 Hotjar 進行跨年度流量對比，識別轉換漏斗優化機會。",
+      "tags": ["Google Analytics", "Hotjar", "Data Analysis", "UX Optimization"],
+      "achievements": [
+        "完成年度 EDM 成效對比分析報告",
+        "熱圖分析發現點擊熱區與 CTA 位置差異",
+        "提出 CTA 優化建議，改善使用者轉換路徑",
+        "協助行銷團隊數據驅動決策"
+      ]
+    },
+    {
+      "name": "輿情分析平台",
+      "period": "2021",
+      "company": "台灣知識庫",
+      "isFreelance": false,
+      "roles": ["Frontend"],
+      "description": "為高層與行銷團隊打造的輿情決策儀表板。整合多數據源，提供即時分析與洞察。支援多維度數據切片與鑽取。",
+      "tags": ["Vue 2", "Vuex", "Chart.js", "D3.js", "Data Visualization"],
+      "achievements": [
+        "複雜數據圖表開發",
+        "即時數據更新機制"
+      ]
+    }
+  ]
+}

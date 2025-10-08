@@ -1,0 +1,44 @@
+{
+  "experiences": [
+    {
+      "type": "work",
+      "period": "2020/12 - 2024/06",
+      "title": "資深前端工程師 / 組長",
+      "company": "台灣知識庫股份有限公司",
+      "responsibilities": [
+        "技術團隊領導者，主導企業級前端架構設計與開發標準建立",
+        "從前端工程師成長為跨職能協作者，整合 AI 技術推動產品創新"
+      ]
+    },
+    {
+      "type": "education",
+      "period": "2020/3 - 2020/8",
+      "description": "勞動部勞動力發展署 · PHP資料庫網頁設計課程"
+    },
+    {
+      "type": "work",
+      "period": "2019/04 - 2019/10",
+      "title": "專案企劃",
+      "company": "竹冶聯合設計工作室",
+      "responsibilities": [
+        "地方創生專案規劃：從提案撰寫到資源整合的完整流程",
+        "協調多方利害關係人（政府、社區組織、居民），促成專案落地"
+      ]
+    },
+    {
+      "type": "work",
+      "period": "2017/06 - 2018/11",
+      "title": "Supervisor",
+      "company": "MOUNT BULLER CHALET HOTEL / ECOF SERVICE Pty Ltd",
+      "responsibilities": [
+        "兩次擔任團隊主管，帶領 15 人跨文化團隊（澳洲雪場飯店）",
+        "負責排班管理、進度追蹤與突發狀況處理，確保營運順暢"
+      ]
+    },
+    {
+      "type": "education",
+      "period": "2012 - 2017",
+      "description": "東海大學 · 景觀學系 學士"
+    }
+  ]
+}
