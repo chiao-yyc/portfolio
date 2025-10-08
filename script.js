@@ -157,174 +157,40 @@ projectTabs.forEach(tab => {
         }
     });
 });
-
 // ========================================
-// Skills Tab with Scroll Hijacking
+// Skills Tab Switching
 // ========================================
 
 (function() {
-    // Only enable on desktop (screen width > 1024px)
-    if (window.innerWidth <= 1024) {
-        // Mobile: Use simple tab switching
-        const skillsTabs = document.querySelectorAll('.skills-tab');
-        const skillsContents = document.querySelectorAll('.skills-tab-content');
-
-        skillsTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const targetTab = tab.getAttribute('data-tab');
-
-                skillsTabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-
-                skillsContents.forEach(content => content.classList.add('hidden'));
-                const targetContent = document.getElementById(`${targetTab}-skills`);
-                if (targetContent) targetContent.classList.remove('hidden');
-            });
-        });
-        return;
-    }
-
-    const wrapper = document.getElementById('skills-wrapper');
-    const skillsSection = document.getElementById('skills');
     const skillsTabs = document.querySelectorAll('.skills-tab');
     const skillsContents = document.querySelectorAll('.skills-tab-content');
 
-    let currentSkillsTab = 'core';
-    let switchTimeout = null;  // Track delay timer
-    let isSwitching = false;   // Lock scroll during switch
-
-    if (!wrapper || !skillsSection) return;
-
-    // Setup virtual scroll height
-    function setupScrollHeight() {
-        // Virtual height = viewport height × 2.5
-        const virtualHeight = window.innerHeight * 2.5;
-        wrapper.style.height = `${virtualHeight}px`;
-
-        console.log('✅ Skills scroll hijacking initialized:', {
-            virtualHeight,
-            viewportHeight: window.innerHeight
-        });
-    }
-
-    // Function to switch tab with transition delay
-    function switchSkillsTab(tabName) {
-        if (currentSkillsTab === tabName || isSwitching) return;
-
-        currentSkillsTab = tabName;
-        isSwitching = true;  // Lock scroll during switch
-
-        // Step 1: Fade out current content (keep space with opacity)
-        skillsContents.forEach(content => {
-            content.style.opacity = '0';
-        });
-
-        // Step 2: Wait for blank space delay
-        setTimeout(() => {
-            // Step 3: Update tab buttons
-            skillsTabs.forEach(tab => {
-                if (tab.getAttribute('data-tab') === tabName) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
-
-            // Step 4: Hide old content and show new content
-            skillsContents.forEach(content => {
-                if (content.id === `${tabName}-skills`) {
-                    content.classList.remove('hidden');
-                    // Trigger reflow then fade in
-                    setTimeout(() => {
-                        content.style.opacity = '1';
-
-                        // Step 5: Keep lock for a while to ensure user sees Tab 2
-                        setTimeout(() => {
-                            isSwitching = false;  // Unlock scroll
-                        }, 800);  // Display Tab 2 for at least 800ms
-                    }, 10);
-                } else {
-                    content.classList.add('hidden');
-                }
-            });
-        }, 300);  // 300ms blank delay between tabs
-    }
-
-    // Manual tab click
     skillsTabs.forEach(tab => {
         tab.addEventListener('click', () => {
             const targetTab = tab.getAttribute('data-tab');
-            switchSkillsTab(targetTab);
+
+            // Remove active class from all tabs
+            skillsTabs.forEach(t => t.classList.remove('active'));
+
+            // Add active class to clicked tab
+            tab.classList.add('active');
+
+            // Hide all tab contents
+            skillsContents.forEach(content => content.classList.add('hidden'));
+
+            // Show target content
+            const targetContent = document.getElementById(`${targetTab}-skills`);
+            if (targetContent) targetContent.classList.remove('hidden');
         });
-    });
-
-    // Handle scroll - control tab switching
-    function handleScroll() {
-        // Ignore scroll during switch animation
-        if (isSwitching) return;
-
-        const wrapperRect = wrapper.getBoundingClientRect();
-        const wrapperTop = wrapperRect.top;
-        const wrapperHeight = wrapperRect.height;
-        const viewportHeight = window.innerHeight;
-
-        // Only activate when wrapper is in view
-        if (wrapperTop > 0 || wrapperRect.bottom < viewportHeight) {
-            return;
-        }
-
-        // Calculate scroll progress (0 to 1)
-        const scrollProgress = Math.abs(wrapperTop) / (wrapperHeight - viewportHeight);
-        const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
-
-        // Tab switching logic with delay
-        if (clampedProgress >= 0.5 && currentSkillsTab === 'core') {
-            // Enter switch zone - start delay timer
-            if (!switchTimeout) {
-                switchTimeout = setTimeout(() => {
-                    switchSkillsTab('advanced');
-                    switchTimeout = null;
-                }, 500);  // 500ms delay
-            }
-        } else if (clampedProgress < 0.5 && currentSkillsTab === 'core') {
-            // Left switch zone - cancel delay
-            if (switchTimeout) {
-                clearTimeout(switchTimeout);
-                switchTimeout = null;
-            }
-        } else if (clampedProgress < 0.3 && currentSkillsTab === 'advanced') {
-            // Switch back to tab 1 when scrolling up
-            switchSkillsTab('core');
-            if (switchTimeout) {
-                clearTimeout(switchTimeout);
-                switchTimeout = null;
-            }
-        }
-    }
-
-    // Initialize
-    setupScrollHeight();
-
-    // Listen to scroll events
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    // Recalculate on window resize
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 1024) {
-            setupScrollHeight();
-        } else {
-            // Clean up desktop styles when switching to mobile
-            wrapper.style.height = '';
-        }
     });
 })();
 
 // ========================================
 // Horizontal Scrolling Experience Timeline
-// New Approach: Virtual Scroll Height
+// Function to initialize after data is loaded
 // ========================================
 
-(function() {
+function initExperienceHorizontalScroll() {
     // Only enable on desktop (screen width > 1024px)
     if (window.innerWidth <= 1024) {
         return;
@@ -464,5 +330,305 @@ projectTabs.forEach(tab => {
     }, { threshold: 0.2 });
 
     observer.observe(experienceSection);
+}
 
+// ========================================
+// Dynamic Projects Rendering
+// ========================================
+
+(function() {
+    const sideProjectsContainer = document.getElementById('side-projects-container');
+    const workProjectsContainer = document.getElementById('work-projects-container');
+
+    // Fetch and render all projects
+    fetch('./data/projects.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to load projects data');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Render Side Projects
+            if (sideProjectsContainer && data.sideProjects) {
+                renderSideProjects(data.sideProjects);
+            }
+            // Render Work Projects
+            if (workProjectsContainer && data.workProjects) {
+                renderWorkProjects(data.workProjects);
+            }
+        })
+        .catch(error => {
+            console.error('Error loading projects:', error);
+            if (sideProjectsContainer) {
+                sideProjectsContainer.innerHTML = '<p class="text-gray-400 text-center">Failed to load projects</p>';
+            }
+            if (workProjectsContainer) {
+                workProjectsContainer.innerHTML = '<p class="text-gray-400 text-center">Failed to load projects</p>';
+            }
+        });
+
+    // Render Side Projects
+    function renderSideProjects(projects) {
+        sideProjectsContainer.innerHTML = projects.map(project => createSideProjectCard(project)).join('');
+    }
+
+    function createSideProjectCard(project) {
+        const statusColorMap = {
+            'green': 'bg-green-600/20 border-green-500/50 text-green-300',
+            'blue': 'bg-blue-600/20 border-blue-500/50 text-blue-300',
+            'yellow': 'bg-yellow-600/20 border-yellow-500/50 text-yellow-300',
+            'purple': 'bg-purple-600/20 border-purple-500/50 text-purple-300'
+        };
+
+        const statusClass = statusColorMap[project.statusColor] || statusColorMap['green'];
+
+        const tagsHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+
+        // Build links HTML
+        let linksHTML = '';
+        if (project.links.github) {
+            linksHTML += `<a href="${project.links.github}" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm font-medium">GitHub →</a>`;
+        }
+        if (project.links.website) {
+            linksHTML += `<a href="${project.links.website}" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm font-medium">Website →</a>`;
+        }
+
+        return `
+            <div class="bg-gray-800/50 border border-gray-700 rounded-lg overflow-hidden hover:border-blue-500/50 hover:transform hover:scale-105 transition-all">
+                <div class="p-6">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="text-xl font-semibold">${project.name}</h3>
+                        <span class="text-xs px-2 py-1 border rounded ${statusClass}">${project.status}</span>
+                    </div>
+                    ${project.period ? `<p class="text-xs text-gray-500 mb-3">${project.period}</p>` : ''}
+                    <p class="side-project-description mb-4">
+                        ${project.description}
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        ${tagsHTML}
+                    </div>
+                    <div class="flex gap-3">
+                        ${linksHTML}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Render Work Projects
+    function renderWorkProjects(projects) {
+        workProjectsContainer.innerHTML = projects.map(project => createWorkProjectCard(project)).join('');
+    }
+
+    function createWorkProjectCard(project) {
+        // Roles HTML (橙色系)
+        const rolesHTML = project.roles && project.roles.length > 0
+            ? project.roles.map(role => `<span class="role-tag">${role}</span>`).join('')
+            : '';
+
+        // 所有 Tags (顯示在正面)
+        const allTagsHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+
+        // Achievements
+        const achievementsHTML = project.achievements
+            .map(achievement => `<p>• ${achievement}</p>`)
+            .join('');
+
+        // Freelance badge
+        const freelanceBadge = project.isFreelance
+            ? `<span class="px-2 py-1 bg-purple-600/20 border border-purple-500/50 rounded text-xs text-purple-300">💼 Freelance</span>`
+            : '';
+
+        // Period display
+        const periodDisplay = project.company
+            ? `${project.period} · ${project.company}`
+            : project.period;
+
+        // Build links HTML
+        let linksHTML = '';
+        if (project.links) {
+            if (project.links.github) {
+                linksHTML += `<a href="${project.links.github}" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm font-medium">GitHub →</a>`;
+            }
+            if (project.links.website) {
+                linksHTML += `<a href="${project.links.website}" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm font-medium ml-3">Website →</a>`;
+            }
+        }
+
+        return `
+            <div class="work-card">
+                <!-- 正面（平時顯示） -->
+                <div class="card-front">
+                    <!-- 上區：標題 + 時間 -->
+                    <div class="card-header">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="text-lg font-semibold text-blue-400">${project.name}</h3>
+                            ${freelanceBadge}
+                        </div>
+                        <p class="text-xs text-gray-500">${periodDisplay}</p>
+                    </div>
+
+                    <!-- 中區：描述（垂直置中） -->
+                    <div class="card-middle">
+                        <p class="description-front">${project.description}</p>
+                    </div>
+
+                    <!-- 下區：Roles & Tags（底部對齊） -->
+                    <div class="card-footer">
+                        <!-- Roles -->
+                        ${rolesHTML ? `<div class="mb-2">
+                            <span class="label-text">Role</span>
+                            <div class="flex flex-wrap gap-1 mt-1">${rolesHTML}</div>
+                        </div>` : ''}
+
+                        <!-- Tags (全部) -->
+                        ${allTagsHTML ? `<div>
+                            <span class="label-text">Tech</span>
+                            <div class="flex flex-wrap gap-1 mt-1">
+                                ${allTagsHTML}
+                            </div>
+                        </div>` : ''}
+                    </div>
+                </div>
+
+                <!-- 遮罩（hover 顯示） -->
+                <div class="card-overlay">
+                    <!-- 專案圖片 (如果有) -->
+                    ${project.image ? `<div class="project-image-wrapper">
+                        <img src="${project.image}" alt="${project.name}" class="project-image">
+                    </div>` : ''}
+
+                    <!-- Achievements -->
+                    <div class="achievements-section">
+                        <h4 class="achievements-title">Achievements</h4>
+                        <div class="achievements-content">
+                            ${achievementsHTML}
+                        </div>
+                    </div>
+
+                    <!-- Links -->
+                    ${linksHTML ? `<div class="links-section">${linksHTML}</div>` : ''}
+                </div>
+            </div>
+        `;
+    }
 })();
+
+// ========================================
+// Terminal Scroll Hijacking (Desktop Only)
+// ========================================
+
+(function() {
+    const heroSection = document.getElementById('hero');
+    const terminalContent = document.querySelector('.terminal-content');
+
+    if (!heroSection || !terminalContent) return;
+
+    window.addEventListener('wheel', (e) => {
+        // 只在桌面版（> 1024px）啟用 scroll hijacking
+        if (window.innerWidth <= 1024) return;
+
+        const heroRect = heroSection.getBoundingClientRect();
+        const isHeroVisible = heroRect.top <= 0 && heroRect.bottom >= window.innerHeight;
+
+        if (isHeroVisible && terminalContent) {
+            const scrollTop = terminalContent.scrollTop;
+            const scrollHeight = terminalContent.scrollHeight;
+            const clientHeight = terminalContent.clientHeight;
+            const isAtTop = scrollTop === 0;
+            const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
+
+            // 向下滾動且 Terminal 未到底部，劫持滾動
+            if (e.deltaY > 0 && !isAtBottom) {
+                e.preventDefault();
+                terminalContent.scrollTop += e.deltaY;
+            }
+            // 向上滾動且 Terminal 未到頂部，劫持滾動
+            else if (e.deltaY < 0 && !isAtTop) {
+                e.preventDefault();
+                terminalContent.scrollTop += e.deltaY;
+            }
+            // 否則允許正常頁面滾動
+        }
+    }, { passive: false });
+})();
+
+// ========================================
+// Dynamic Experience Timeline Rendering
+// ========================================
+
+(function() {
+    const container = document.getElementById('experience-items-container');
+    if (!container) return;
+
+    // Fetch and render experiences
+    fetch('./data/experiences.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to load experiences data');
+            }
+            return response.json();
+        })
+        .then(data => {
+            renderExperiences(data.experiences);
+
+            // Initialize horizontal scroll AFTER data is rendered
+            // Use setTimeout to ensure DOM is fully updated
+            setTimeout(() => {
+                initExperienceHorizontalScroll();
+            }, 100);
+        })
+        .catch(error => {
+            console.error('Error loading experiences:', error);
+            container.innerHTML = '<p class="text-gray-400 text-center">Failed to load experiences</p>';
+        });
+
+    function renderExperiences(experiences) {
+        container.innerHTML = experiences.map(exp => createExperienceItem(exp)).join('');
+    }
+
+    function createExperienceItem(exp) {
+        // Education item - simple card
+        if (exp.type === 'education') {
+            return `
+                <div class="experience-item-horizontal education-item">
+                    <div class="timeline-dot-horizontal bg-gray-700"></div>
+                    <div class="experience-period text-gray-500">${exp.period}</div>
+                    <div class="experience-card">
+                        <p class="text-sm text-gray-400">${exp.description}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Work item - full card with responsibilities
+        const responsibilitiesHTML = exp.responsibilities
+            .map(resp => `
+                <li class="flex items-start">
+                    <span class="text-blue-400 mr-2">•</span>
+                    <span>${resp}</span>
+                </li>
+            `)
+            .join('');
+
+        return `
+            <div class="experience-item-horizontal">
+                <div class="timeline-dot-horizontal bg-gray-700"></div>
+                <div class="experience-period text-gray-500">${exp.period}</div>
+                <div class="experience-card">
+                    <h3 class="text-xl font-semibold text-blue-400">${exp.title}</h3>
+                    <p class="text-gray-300 text-sm mt-1">${exp.company}</p>
+                    <ul class="space-y-2 text-sm mt-4 experience-responsibilities">
+                        ${responsibilitiesHTML}
+                    </ul>
+                </div>
+            </div>
+        `;
+    }
+})();
+
+// ========================================
+// Initialize Lucide Icons
+// ========================================
+lucide.createIcons();
