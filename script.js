@@ -383,7 +383,13 @@ function initExperienceHorizontalScroll() {
 
         const statusClass = statusColorMap[project.statusColor] || statusColorMap['green'];
 
+        // Tech tags (blue)
         const tagsHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+
+        // Concept tags (purple)
+        const conceptsHTML = project.concepts
+            ? project.concepts.map(concept => `<span class="concept-tag">${concept}</span>`).join('')
+            : '';
 
         // Build links HTML
         let linksHTML = '';
@@ -391,26 +397,82 @@ function initExperienceHorizontalScroll() {
             linksHTML += `<a href="${project.links.github}" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm font-medium">GitHub →</a>`;
         }
         if (project.links.website) {
-            linksHTML += `<a href="${project.links.website}" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm font-medium">Website →</a>`;
+            linksHTML += `<a href="${project.links.website}" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm font-medium ml-3">Website →</a>`;
+        }
+
+        // Front image HTML
+        const frontImageHTML = project.media?.front?.type === 'image'
+            ? `<div class="card-image-front">
+                <img src="${project.media.front.src}" alt="${project.name}" loading="lazy">
+            </div>`
+            : '';
+
+        // Overlay media HTML (GIF or image)
+        let overlayMediaHTML = '';
+        if (project.media?.overlay?.type === 'gif') {
+            overlayMediaHTML = `<div class="project-image-wrapper">
+                <img src="${project.media.overlay.src}" alt="${project.name} demo" class="project-image" loading="lazy">
+            </div>`;
+        } else if (project.media?.overlay?.type === 'image') {
+            overlayMediaHTML = `<div class="project-image-wrapper">
+                <img src="${project.media.overlay.src}" alt="${project.name}" class="project-image" loading="lazy">
+            </div>`;
         }
 
         return `
-            <div class="bg-gray-800/50 border border-gray-700 rounded-lg overflow-hidden hover:border-blue-500/50 hover:transform hover:scale-105 transition-all">
-                <div class="p-6">
-                    <div class="flex items-start justify-between mb-3">
-                        <h3 class="text-xl font-semibold">${project.name}</h3>
-                        <span class="text-xs px-2 py-1 border rounded ${statusClass}">${project.status}</span>
+            <div class="work-card">
+                <!-- Card Front (Default View) -->
+                <div class="card-front">
+                    ${frontImageHTML}
+
+                    <!-- Header: Title + Status -->
+                    <div class="card-header">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="text-lg font-semibold text-blue-400">${project.name}</h3>
+                            <span class="text-xs px-2 py-1 border rounded ${statusClass}">${project.status}</span>
+                        </div>
+                        ${project.period ? `<p class="text-xs text-gray-500">${project.period}</p>` : ''}
                     </div>
-                    ${project.period ? `<p class="text-xs text-gray-500 mb-3">${project.period}</p>` : ''}
-                    <p class="side-project-description mb-4">
-                        ${project.description}
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        ${tagsHTML}
+
+                    <!-- Middle: Description -->
+                    <div class="card-middle">
+                        <p class="description-front">${project.description}</p>
                     </div>
-                    <div class="flex gap-3">
-                        ${linksHTML}
+
+                    <!-- Footer: Tech & Concept Tags -->
+                    <div class="card-footer">
+                        <!-- Tech Tags -->
+                        ${tagsHTML ? `<div class="mb-2">
+                            <span class="label-text">Tech</span>
+                            <div class="flex flex-wrap gap-1 mt-1">
+                                ${tagsHTML}
+                            </div>
+                        </div>` : ''}
+
+                        <!-- Concept Tags -->
+                        ${conceptsHTML ? `<div>
+                            <span class="label-text">Concepts</span>
+                            <div class="flex flex-wrap gap-1 mt-1">
+                                ${conceptsHTML}
+                            </div>
+                        </div>` : ''}
                     </div>
+                </div>
+
+                <!-- Card Overlay (Hover State) -->
+                <div class="card-overlay">
+                    ${overlayMediaHTML}
+
+                    <!-- Detailed Description -->
+                    <div class="achievements-section">
+                        <h4 class="achievements-title">About</h4>
+                        <div class="achievements-content">
+                            <p>${project.detailedDescription || project.description}</p>
+                        </div>
+                    </div>
+
+                    <!-- Links -->
+                    ${linksHTML ? `<div class="links-section">${linksHTML}</div>` : ''}
                 </div>
             </div>
         `;
@@ -626,6 +688,196 @@ function initExperienceHorizontalScroll() {
             </div>
         `;
     }
+})();
+
+// ========================================
+// Card Description Typewriter Effect on Hover
+// ========================================
+
+(function() {
+    const cardDescriptions = document.querySelectorAll('.card-description');
+    const typewriterSpeed = 45; // ms per character (balanced speed for readability)
+    let typingIntervals = new Map(); // Store active intervals for each card
+    let fadeTimeouts = new Map(); // Store fade timeouts to prevent text overlap on rapid hover
+
+    // ========================================
+    // 切換方案說明：
+    // - 方案 A（目前啟用）: 整體顏色變亮 (text-gray-400 → text-gray-300)
+    // - 方案 B（註解備用）: 字符逐字淡入動畫
+    //
+    // 若要改用方案 B：
+    // 1. 註解掉方案 A 的程式碼區塊（標記為 "PLAN A"）
+    // 2. 取消方案 B 的程式碼區塊註解（標記為 "PLAN B"）
+    // ========================================
+
+    cardDescriptions.forEach(desc => {
+        const defaultText = desc.getAttribute('data-default');
+        const hoverText = desc.getAttribute('data-hover');
+        const parentCard = desc.closest('.p-8'); // Get parent card container
+
+        if (!defaultText || !hoverText || !parentCard) return;
+
+        /* // ========== PLAN A START ==========
+        // 方案 A: 整體顏色變亮
+
+        // Hover event - start typewriter effect
+        parentCard.addEventListener('mouseenter', () => {
+            // Clear any existing interval for this description
+            if (typingIntervals.has(desc)) {
+                clearInterval(typingIntervals.get(desc));
+            }
+
+            // Change text color to brighter shade
+            desc.classList.remove('text-gray-400');
+            desc.classList.add('text-gray-300');
+
+            // Start typewriter effect
+            let charIndex = 0;
+            desc.textContent = ''; // Clear text
+
+            const interval = setInterval(() => {
+                if (charIndex < hoverText.length) {
+                    desc.textContent += hoverText[charIndex];
+                    charIndex++;
+                } else {
+                    // Typing complete
+                    clearInterval(interval);
+                    typingIntervals.delete(desc);
+                }
+            }, typewriterSpeed);
+
+            // Store interval reference
+            typingIntervals.set(desc, interval);
+        });
+
+        // Mouse leave event - restore default text immediately
+        parentCard.addEventListener('mouseleave', () => {
+            // Clear typing interval if still running
+            if (typingIntervals.has(desc)) {
+                clearInterval(typingIntervals.get(desc));
+                typingIntervals.delete(desc);
+            }
+
+            // Restore original color
+            desc.classList.remove('text-gray-300');
+            desc.classList.add('text-gray-400');
+
+            // Restore default text immediately (no typewriter effect)
+            desc.innerHTML = defaultText;
+        });
+        // ========== PLAN A END ========== */
+
+        //  ========== PLAN B START ==========
+        // 方案 B: 字符逐字淡入動畫
+
+        // Hover event - start typewriter effect with fade-in animation
+        parentCard.addEventListener('mouseenter', () => {
+            // Clear any pending fade timeouts from mouseleave (prevents text overlap)
+            if (fadeTimeouts.has(desc)) {
+                const timeouts = fadeTimeouts.get(desc);
+                clearTimeout(timeouts.fadeOut);
+                clearTimeout(timeouts.cleanup);
+                fadeTimeouts.delete(desc);
+            }
+
+            // Clear any existing interval for this description
+            if (typingIntervals.has(desc)) {
+                clearInterval(typingIntervals.get(desc));
+            }
+
+            // Reset opacity and transition (in case interrupted mid-fade)
+            desc.style.transition = '';
+            desc.style.opacity = '1';
+
+            // Change text color to brighter shade
+            desc.classList.remove('text-gray-500');
+            desc.classList.add('text-gray-300');
+
+            // Start typewriter effect with character fade-in
+            let charIndex = 0;
+            desc.innerHTML = ''; // Clear text
+
+            const interval = setInterval(() => {
+                if (charIndex < hoverText.length) {
+                    // Create span for each character with fade-in animation
+                    const span = document.createElement('span');
+                    span.textContent = hoverText[charIndex];
+                    span.style.opacity = '0';
+                    span.style.letterSpacing = '0.12em';
+                    span.style.fontWeight = '300';
+                    span.style.textShadow = '0 0 12px rgba(34, 197, 94, 0.4), 0 0 8px rgba(34, 197, 94, 0.4)';
+                    span.style.animation = 'charFadeIn 0.1s ease forwards';
+                    desc.appendChild(span);
+                    charIndex++;
+                } else {
+                    // Typing complete
+                    clearInterval(interval);
+                    typingIntervals.delete(desc);
+                }
+            }, typewriterSpeed);
+
+            // Store interval reference
+            typingIntervals.set(desc, interval);
+        });
+
+        // Mouse leave event - restore default text with fade transition
+        parentCard.addEventListener('mouseleave', () => {
+            // Clear typing interval if still running
+            if (typingIntervals.has(desc)) {
+                clearInterval(typingIntervals.get(desc));
+                typingIntervals.delete(desc);
+            }
+
+            // Step 1: Fade out current hover text
+            desc.style.transition = 'opacity 0.3s ease';
+            desc.style.opacity = '0';
+
+            // Step 2: After fade out, replace text and fade in
+            const fadeOutTimeout = setTimeout(() => {
+                // Restore original color
+                desc.classList.remove('text-gray-300');
+                desc.classList.add('text-gray-500');
+
+                // Replace with default text
+                desc.innerHTML = defaultText;
+
+                // Step 3: Fade in default text
+                requestAnimationFrame(() => {
+                    desc.style.opacity = '1';
+                });
+            }, 300); // Match transition duration
+
+            // Step 4: Clean up inline styles after animation completes
+            const cleanupTimeout = setTimeout(() => {
+                desc.style.transition = '';
+                fadeTimeouts.delete(desc); // Clean up timeout references
+            }, 600); // 300ms fade out + 300ms fade in
+
+            // Store timeout references to allow cancellation on rapid hover
+            fadeTimeouts.set(desc, {
+                fadeOut: fadeOutTimeout,
+                cleanup: cleanupTimeout
+            });
+        });
+        // ========== PLAN B END ==========
+    });
+
+    // Add CSS animation for character fade-in (used by Plan B)
+    // This will be added to the page dynamically if Plan B is active
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes charFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-2px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    `;
+    document.head.appendChild(style);
 })();
 
 // ========================================
