@@ -5,8 +5,20 @@
       "period": "2024/06 - 2024/09",
       "status": "In Progress",
       "statusColor": "green",
-      "description": "受 shadcn/ui 啟發的 D3.js 圖表元件庫。透過 CLI 工具提供可複製貼上的圖表元件，讓開發者完全掌控程式碼。",
-      "tags": ["D3.js v7", "TypeScript", "CLI", "Chart Library"],
+      "description": "受 shadcn/ui 啟發的 D3.js 圖表元件庫",
+      "detailedDescription": "透過 CLI 工具提供可複製貼上的圖表元件，讓開發者完全掌控程式碼。採用 shadcn/ui 的設計哲學，專注於開發者體驗與元件可組合性，降低 D3.js 學習曲線。",
+      "tags": ["D3.js", "TypeScript", "CLI", "React"],
+      "concepts": ["DX Design", "Component Library", "CLI Tools"],
+      "media": {
+        "front": {
+          "type": "image",
+          "src": "/images/d3kit-preview.png"
+        },
+        "overlay": {
+          "type": "gif",
+          "src": "/images/d3kit-demo.gif"
+        }
+      },
       "links": {
         "github": "https://github.com/chiaoyyc",
         "website": "https://d3comp.yachiaoyang.dev"
@@ -15,25 +27,48 @@
     {
       "name": "電商後台管理平台",
       "period": "2024/06 - 2024/09",
-      "status": "In Progress",
-      "statusColor": "green",
-      "description": "企業級全端電商後台，Monorepo 架構。包含訂單管理、庫存追蹤、客戶關係管理與數據分析完整功能。",
-      "tags": ["Vue 3", "React", "Supabase", "Monorepo", "shadcn/ui", "System Architecture"],
+      "status": "#AIassisted",
+      "statusColor": "blue",
+      "description": "企業級全端電商後台，Monorepo 架構",
+      "detailedDescription": "包含訂單管理、庫存追蹤、客戶關係管理與數據分析完整功能。採用 Monorepo 統一管理前後端，整合 Supabase 自架實例，實現企業級資料安全與效能優化。",
+      "tags": ["Vue 3", "Supabase", "PostgreSQL", "shadcn/ui"],
+      "concepts": ["Monorepo", "System Architecture", "Full-stack"],
+      "media": {
+        "front": {
+          "type": "none"
+        },
+        "overlay": {
+          "type": "image",
+          "src": "/images/ecommerce-architecture.png"
+        }
+      },
       "links": {
         "github": "https://github.com/chiaoyyc",
         "website": "https://ecadmin.yachiaoyang.dev"
       }
     },
     {
-      "name": "求職助理系統",
+      "name": "Job Tracker 求職助理",
       "period": "2024/06 - 2024/09",
-      "status": "Completed",
-      "statusColor": "blue",
-      "description": "為求職者打造的智慧管理系統。整合職缺爬蟲、自動化合適度分析與偏好推薦，搭配完整的申請流程追蹤（感興趣 → 申請 → 面試 → 結果），提升求職效率。",
-      "tags": ["Node.js", "JavaScript", "HTML", "Web Scraping", "Automation"],
+      "status": "#VibeCode",
+      "statusColor": "green",
+      "description": "為求職者打造的智慧管理系統",
+      "detailedDescription": "整合職缺爬蟲、自動化合適度分析與偏好推薦，搭配完整的申請流程追蹤（感興趣 → 申請 → 面試 → 結果），提升求職效率。使用 Puppeteer 實現穩定的網頁爬蟲，Prisma 管理資料建模。",
+      "tags": ["Node.js", "Express", "Puppeteer", "Prisma"],
+      "concepts": ["Web Scraping", "Automation", "User Journey"],
+      "media": {
+        "front": {
+          "type": "image",
+          "src": "/images/jobtracker-preview.png"
+        },
+        "overlay": {
+          "type": "gif",
+          "src": "/images/jobtracker-demo.gif"
+        }
+      },
       "links": {
         "github": "",
-        "website": ""
+        "website": "https://jobtracker.yachiaoyang.dev"
       }
     }
   ],
@@ -119,8 +154,7 @@
         "完整專案獨立交付（需求至開發）",
         "WebSocket 即時聊天室開發",
         "YouTube 直播串流整合"
-      ],
-      "image": "./assets/projects/live-shopping.jpg"
+      ]
     },
     {
       "name": "EDM 成效分析與優化",
