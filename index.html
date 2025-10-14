@@ -3,12 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>楊雅喬 Ya Chiao Yang | Frontend Tech Lead & Web Developer</title>
+    <meta
+      name="title"
+      content="楊雅喬 Ya Chiao Yang | Frontend Tech Lead & Web Developer"
+    />
     <meta
       name="description"
-      content="楊雅喬 Grace Yang - 前端開發者，3.5年 Vue.js/Nuxt.js 實戰經驗"
+      content="資深前端工程師，3.5年 Vue.js/Nuxt.js 實戰經驗。聚焦企業級內部系統、數據視覺化平台與 AI 整合應用開發。從前端開發者成長為技術團隊領導者，帶領 8 人跨職能團隊完成平台整合重構與 UI 元件庫建設。"
     />
-    <meta name="author" content="Grace Yang" />
-    <title>Grace Yang | Web Developer</title>
+    <meta name="author" content="Ya Chiao Yang" />
+    <meta name="keywords" content="前端工程師, Frontend Developer, Vue.js, Nuxt.js, React, TypeScript, Tech Lead, D3.js, Data Visualization, AI Integration, 楊雅喬" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yachiaoyang.dev/" />
+    <meta property="og:title" content="楊雅喬 Ya Chiao Yang | Frontend Tech Lead & Web Developer" />
+    <meta
+      property="og:description"
+      content="資深前端工程師，3.5年 Vue.js/Nuxt.js 實戰經驗。聚焦企業級內部系統、數據視覺化平台與 AI 整合應用開發。"
+    />
+    <meta property="og:image" content="https://yachiaoyang.dev/assets/portfolio.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="zh_TW" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://yachiaoyang.dev/" />
+    <meta property="twitter:title" content="楊雅喬 Ya Chiao Yang | Frontend Tech Lead & Web Developer" />
+    <meta
+      property="twitter:description"
+      content="資深前端工程師，3.5年 Vue.js/Nuxt.js 實戰經驗。聚焦企業級內部系統、數據視覺化平台與 AI 整合應用開發。"
+    />
+    <meta property="twitter:image" content="https://yachiaoyang.dev/assets/portfolio.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yachiaoyang.dev/" />
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -39,12 +75,12 @@
           <a href="#hero" class="text-xl font-bold">GY</a>
 
           <ul class="hidden md:flex space-x-6 text-sm">
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#experience" class="nav-link">Experience</a></li>
+            <li><a href="#skills" class="nav-link">Tech Stack</a></li>
+            <li><a href="#about" class="nav-link">Core Strengths</a></li>
             <li><a href="#projects" class="nav-link">Projects</a></li>
-            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#experience" class="nav-link">Experience</a></li>
             <li><a href="#contact" class="nav-link">Contact</a></li>
-            <li><a href="./assets/resume.pdf#view=FitH&pagemode=none" target="_blank" rel="noopener noreferrer" class="nav-link">Resume</a></li>
+            <li><a href="./assets/resume_20251014.pdf#view=Fit&pagemode=none" target="_blank" rel="noopener noreferrer" class="nav-link">Resume</a></li>
           </ul>
 
           <div class="flex items-center space-x-4">
@@ -100,12 +136,12 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
           <ul class="space-y-3">
-            <li><a href="#about" class="block nav-link">About</a></li>
-            <li><a href="#experience" class="block nav-link">Experience</a></li>
+            <li><a href="#skills" class="block nav-link">Tech Stack</a></li>
+            <li><a href="#about" class="block nav-link">Core Strengths</a></li>
             <li><a href="#projects" class="block nav-link">Projects</a></li>
-            <li><a href="#skills" class="block nav-link">Skills</a></li>
+            <li><a href="#experience" class="block nav-link">Experience</a></li>
             <li><a href="#contact" class="block nav-link">Contact</a></li>
-            <li><a href="./assets/resume.pdf#view=FitH&pagemode=none" target="_blank" rel="noopener noreferrer" class="block nav-link">Resume</a></li>
+            <li><a href="./assets/resume_20251014.pdf#view=Fit&pagemode=none" target="_blank" rel="noopener noreferrer" class="block nav-link">Resume</a></li>
           </ul>
         </div>
       </div>
@@ -329,7 +365,7 @@
     <div id="skills-wrapper" class="skills-wrapper">
       <section
         id="skills"
-        class="skills-sticky-section py-20 border-t border-gray-800"
+        class="skills-sticky-section min-h-screen py-20 border-t border-gray-800"
       >
         <div class="container mx-auto px-6">
           <h2 class="section-title">Tech Stack</h2>
@@ -425,7 +461,7 @@
                   </h3>
                   <div class="space-y-2 text-sm">
                     <div class="flex items-center justify-between">
-                      <span class="text-gray-300">Vuex / Pinia</span>
+                      <span class="text-gray-300">Pinia / Vuex</span>
                       <span
                         class="text-xs px-2 py-0.5 bg-blue-600/20 border border-blue-500/50 rounded text-blue-300"
                         >Expert</span
@@ -752,7 +788,7 @@
     <!-- End skills-wrapper -->
 
     <!-- About Section -->
-    <section id="about" class="py-20 border-t border-gray-800">
+    <section id="about" class="min-h-screen py-20 border-t border-gray-800">
       <div class="container mx-auto px-6">
         <h2 class="section-title">Core Strengths</h2>
 
@@ -856,10 +892,51 @@
       </div>
     </section>
 
+    <!-- Projects Section -->
+    <section id="projects" class="min-h-screen py-20 border-t border-gray-800">
+      <div class="container mx-auto px-6">
+        <h2 class="section-title">Projects</h2>
+
+        <!-- Tab Navigation -->
+        <div class="max-w-6xl mx-auto mb-8">
+          <div class="flex justify-center gap-4 border-b border-gray-700">
+            <button
+              class="project-tab active px-6 py-3 font-semibold text-sm transition-all"
+              data-tab="side"
+            >
+              Side Projects
+            </button>
+            <button
+              class="project-tab px-6 py-3 font-semibold text-sm transition-all"
+              data-tab="work"
+            >
+              Work Experience Projects
+            </button>
+          </div>
+        </div>
+
+        <!-- Side Projects Tab -->
+        <div class="max-w-6xl mx-auto project-content" id="side-projects">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="side-projects-container">
+            <!-- Projects will be dynamically rendered here -->
+          </div>
+        </div>
+
+        <!-- Work Projects Tab -->
+        <div
+          class="max-w-7xl mx-auto project-content hidden"
+          id="work-projects"
+        >
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="work-projects-container">
+            <!-- Projects will be dynamically rendered here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Experience Section - Horizontal Scroll -->
-    <div id="experience-wrapper" class="experience-wrapper">
+    <div id="experience" class="experience-wrapper">
       <section
-        id="experience"
         class="experience-horizontal-section border-t border-gray-800"
       >
         <div class="container mx-auto px-6 h-full flex flex-col justify-center">
@@ -893,48 +970,6 @@
     </div>
     <!-- End experience-wrapper -->
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-20 border-t border-gray-800">
-      <div class="container mx-auto px-6">
-        <h2 class="section-title">Projects</h2>
-
-        <!-- Tab Navigation -->
-        <div class="max-w-6xl mx-auto mb-8">
-          <div class="flex justify-center gap-4 border-b border-gray-700">
-            <button
-              class="project-tab active px-6 py-3 font-semibold text-sm transition-all"
-              data-tab="side"
-            >
-              Side Projects
-            </button>
-            <button
-              class="project-tab px-6 py-3 font-semibold text-sm transition-all"
-              data-tab="work"
-            >
-              Work Experience Projects
-            </button>
-          </div>
-        </div>
-
-        <!-- Side Projects Tab -->
-        <div class="max-w-6xl mx-auto project-content" id="side-projects">
-          <div class="grid md:grid-cols-2 gap-6" id="side-projects-container">
-            <!-- Projects will be dynamically rendered here -->
-          </div>
-        </div>
-
-        <!-- Work Projects Tab -->
-        <div
-          class="max-w-7xl mx-auto project-content hidden"
-          id="work-projects"
-        >
-          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="work-projects-container">
-            <!-- Projects will be dynamically rendered here -->
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Contact Section -->
     <section id="contact" class="py-20 border-t border-gray-800">
       <div class="container mx-auto px-6">
@@ -944,7 +979,7 @@
           <p class="text-gray-400 mb-8">歡迎聯繫我討論合作機會或技術交流</p>
 
           <div class="flex flex-wrap justify-center gap-6">
-            <a href="mailto:chiaoyyc@gmail.com" class="contact-link">
+            <a href="mailto:chiaoyyc@gmail.com" class="contact-link contact-link-horizontal">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
@@ -954,12 +989,22 @@
                 ></path>
               </svg>
               <span>Email</span>
+              <button
+                onclick="event.preventDefault(); event.stopPropagation(); copyEmailToClipboard();"
+                class="copy-icon-btn"
+                aria-label="複製 Email"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
+                  <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
+                </svg>
+              </button>
             </a>
 
             <a
               href="https://www.linkedin.com/in/yachiaoyang"
               target="_blank"
-              class="contact-link"
+              class="contact-link contact-link-horizontal"
             >
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                 <path
@@ -972,7 +1017,7 @@
             <a
               href="https://github.com/chiao-yyc"
               target="_blank"
-              class="contact-link"
+              class="contact-link contact-link-horizontal"
             >
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                 <path

@@ -12,11 +12,12 @@
       "media": {
         "front": {
           "type": "image",
-          "src": "/images/d3kit-preview.png"
+          "src": "./assets/d3_component.png"
         },
         "overlay": {
-          "type": "gif",
-          "src": "/images/d3kit-demo.gif"
+          "type": "video",
+          "thumbnail": "./assets/d3_component.png",
+          "videoSrc": "./assets/d3_demo.mp4"
         }
       },
       "links": {
@@ -35,11 +36,13 @@
       "concepts": ["Monorepo", "System Architecture", "Full-stack"],
       "media": {
         "front": {
-          "type": "none"
+          "type": "image",
+          "src": "./assets/ec_admin.png"
         },
         "overlay": {
-          "type": "image",
-          "src": "/images/ecommerce-architecture.png"
+          "type": "video",
+          "thumbnail": "./assets/ec_admin.png",
+          "videoSrc": "./assets/ec_admin_demo.mp4"
         }
       },
       "links": {
@@ -59,11 +62,12 @@
       "media": {
         "front": {
           "type": "image",
-          "src": "/images/jobtracker-preview.png"
+          "src": "./assets/job_tracker.png"
         },
         "overlay": {
-          "type": "gif",
-          "src": "/images/jobtracker-demo.gif"
+          "type": "video",
+          "thumbnail": "./assets/job_tracker.png",
+          "videoSrc": "./assets/job_tracker_demo.mp4"
         }
       },
       "links": {

@@ -196,8 +196,8 @@ function initExperienceHorizontalScroll() {
         return;
     }
 
-    const wrapper = document.getElementById('experience-wrapper');
-    const experienceSection = document.getElementById('experience');
+    const wrapper = document.getElementById('experience');
+    const experienceSection = wrapper?.querySelector('.experience-horizontal-section');
     const scrollContainer = document.getElementById('experience-scroll-container');
     const itemsContainer = document.querySelector('.experience-items-horizontal');
 
@@ -371,6 +371,8 @@ function initExperienceHorizontalScroll() {
     // Render Side Projects
     function renderSideProjects(projects) {
         sideProjectsContainer.innerHTML = projects.map(project => createSideProjectCard(project)).join('');
+        // Re-initialize Lucide Icons after rendering
+        lucide.createIcons();
     }
 
     function createSideProjectCard(project) {
@@ -400,74 +402,85 @@ function initExperienceHorizontalScroll() {
             linksHTML += `<a href="${project.links.website}" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm font-medium ml-3">Website →</a>`;
         }
 
-        // Front image HTML
+        // Front image HTML with overlay
         const frontImageHTML = project.media?.front?.type === 'image'
             ? `<div class="card-image-front">
                 <img src="${project.media.front.src}" alt="${project.name}" loading="lazy">
+                <div class="image-overlay">
+                    <h3 class="text-xl font-semibold text-blue-400 text-center px-8 tracking-wide">${project.name}</h3>
+                    <span class="overlay-status-tag ${statusClass}">${project.status}</span>
+                </div>
             </div>`
             : '';
 
-        // Overlay media HTML (GIF or image)
+        // Overlay media HTML (for card back) - supports both image and video
         let overlayMediaHTML = '';
-        if (project.media?.overlay?.type === 'gif') {
-            overlayMediaHTML = `<div class="project-image-wrapper">
-                <img src="${project.media.overlay.src}" alt="${project.name} demo" class="project-image" loading="lazy">
-            </div>`;
-        } else if (project.media?.overlay?.type === 'image') {
-            overlayMediaHTML = `<div class="project-image-wrapper">
-                <img src="${project.media.overlay.src}" alt="${project.name}" class="project-image" loading="lazy">
-            </div>`;
+        if (project.media?.overlay) {
+            const overlay = project.media.overlay;
+            if (overlay.type === 'video') {
+                // Video thumbnail with play button
+                overlayMediaHTML = `
+                    <div class="video-thumbnail-wrapper" data-video-src="${overlay.videoSrc}">
+                        <img src="${overlay.thumbnail}" alt="${project.name}" class="project-image">
+                        <div class="video-play-overlay">
+                            <i data-lucide="play" class="video-play-icon"></i>
+                        </div>
+                    </div>
+                `;
+            } else if (overlay.type === 'image' && overlay.src) {
+                // Regular image
+                overlayMediaHTML = `
+                    <div class="project-image-wrapper">
+                        <img src="${overlay.src}" alt="${project.name}" class="project-image">
+                    </div>
+                `;
+            }
         }
 
         return `
-            <div class="work-card">
-                <!-- Card Front (Default View) -->
+            <div class="work-card side-project-card">
                 <div class="card-front">
+                    <!-- Image -->
                     ${frontImageHTML}
 
-                    <!-- Header: Title + Status -->
-                    <div class="card-header">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-lg font-semibold text-blue-400">${project.name}</h3>
-                            <span class="text-xs px-2 py-1 border rounded ${statusClass}">${project.status}</span>
+                    <!-- Content Wrapper -->
+                    <div class="card-content-wrapper">
+                        <!-- Description -->
+                        <div class="card-middle">
+                            <p class="description-front">${project.description}</p>
                         </div>
-                        ${project.period ? `<p class="text-xs text-gray-500">${project.period}</p>` : ''}
-                    </div>
 
-                    <!-- Middle: Description -->
-                    <div class="card-middle">
-                        <p class="description-front">${project.description}</p>
-                    </div>
+                        <!-- Footer: Tech & Concept Tags -->
+                        <div class="card-footer">
+                            <!-- Tech Tags -->
+                            ${tagsHTML ? `<div class="mb-2">
+                                <span class="label-text">Tech</span>
+                                <div class="flex flex-wrap gap-1 mt-1">
+                                    ${tagsHTML}
+                                </div>
+                            </div>` : ''}
 
-                    <!-- Footer: Tech & Concept Tags -->
-                    <div class="card-footer">
-                        <!-- Tech Tags -->
-                        ${tagsHTML ? `<div class="mb-2">
-                            <span class="label-text">Tech</span>
-                            <div class="flex flex-wrap gap-1 mt-1">
-                                ${tagsHTML}
-                            </div>
-                        </div>` : ''}
-
-                        <!-- Concept Tags -->
-                        ${conceptsHTML ? `<div>
-                            <span class="label-text">Concepts</span>
-                            <div class="flex flex-wrap gap-1 mt-1">
-                                ${conceptsHTML}
-                            </div>
-                        </div>` : ''}
+                            <!-- Concept Tags -->
+                            ${conceptsHTML ? `<div>
+                                <span class="label-text">Concepts</span>
+                                <div class="flex flex-wrap gap-1 mt-1">
+                                    ${conceptsHTML}
+                                </div>
+                            </div>` : ''}
+                        </div>
                     </div>
                 </div>
 
                 <!-- Card Overlay (Hover State) -->
                 <div class="card-overlay">
+                    <!-- Overlay Media (Image or Video) -->
                     ${overlayMediaHTML}
 
                     <!-- Detailed Description -->
                     <div class="achievements-section">
-                        <h4 class="achievements-title">About</h4>
+                        <h4 class="achievements-title">About This Project</h4>
                         <div class="achievements-content">
-                            <p>${project.detailedDescription || project.description}</p>
+                            <p>${project.detailedDescription}</p>
                         </div>
                     </div>
 
@@ -881,6 +894,168 @@ function initExperienceHorizontalScroll() {
 })();
 
 // ========================================
+// Video Modal for Side Projects
+// ========================================
+
+(function() {
+    // Create modal HTML structure
+    const modalHTML = `
+        <div id="video-modal" class="video-modal" style="display: none;">
+            <div class="video-modal-backdrop"></div>
+            <div class="video-modal-content">
+                <button class="video-modal-close" aria-label="Close video">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+                <div class="video-container">
+                    <video id="modal-video" controls>
+                        <source src="" type="video/mp4">
+                        您的瀏覽器不支援影片播放。
+                    </video>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Insert modal into DOM
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // Initialize Lucide Icons for modal close button
+    lucide.createIcons();
+
+    const modal = document.getElementById('video-modal');
+    const video = document.getElementById('modal-video');
+    const videoSource = video.querySelector('source');
+    const closeButton = modal.querySelector('.video-modal-close');
+    const backdrop = modal.querySelector('.video-modal-backdrop');
+
+    // Open modal function
+    function openVideoModal(videoSrc) {
+        videoSource.src = videoSrc;
+        video.load();
+        modal.style.display = 'flex';
+        // Trigger reflow for animation
+        modal.offsetHeight;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent body scroll
+        video.play();
+    }
+
+    // Close modal function
+    function closeVideoModal() {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            modal.style.display = 'none';
+            video.pause();
+            video.currentTime = 0;
+            videoSource.src = '';
+            document.body.style.overflow = ''; // Restore body scroll
+        }, 300); // Match CSS transition duration
+    }
+
+    // Event listeners for modal
+    closeButton.addEventListener('click', closeVideoModal);
+    backdrop.addEventListener('click', closeVideoModal);
+
+    // ESC key to close
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
+            closeVideoModal();
+        }
+    });
+
+    // Delegate click events for video thumbnails
+    document.addEventListener('click', (e) => {
+        const thumbnail = e.target.closest('.video-thumbnail-wrapper');
+        if (thumbnail) {
+            e.preventDefault();
+            const videoSrc = thumbnail.getAttribute('data-video-src');
+            if (videoSrc) {
+                openVideoModal(videoSrc);
+            }
+        }
+    });
+})();
+
+// ========================================
 // Initialize Lucide Icons
 // ========================================
 lucide.createIcons();
+
+// ========================================
+// Copy Email to Clipboard Function
+// ========================================
+
+function copyEmailToClipboard() {
+    const email = 'chiaoyyc@gmail.com';
+
+    // Use modern Clipboard API (with fallback for older browsers)
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email)
+            .then(() => {
+                showToast('已複製 Email！', 'success');
+            })
+            .catch(err => {
+                console.error('Clipboard API failed:', err);
+                fallbackCopyTextToClipboard(email);
+            });
+    } else {
+        // Fallback for older browsers
+        fallbackCopyTextToClipboard(email);
+    }
+}
+
+// Fallback method for older browsers
+function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.top = '-9999px';
+    textArea.style.left = '-9999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+            showToast('已複製 Email！', 'success');
+        } else {
+            showToast('複製失敗，請手動複製', 'error');
+        }
+    } catch (err) {
+        console.error('Fallback copy failed:', err);
+        showToast('複製失敗，請手動複製', 'error');
+    }
+
+    document.body.removeChild(textArea);
+}
+
+// Toast notification function
+function showToast(message, type = 'success') {
+    // Remove existing toast if any
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.textContent = message;
+
+    // Add to DOM
+    document.body.appendChild(toast);
+
+    // Trigger animation
+    requestAnimationFrame(() => {
+        toast.classList.add('show');
+    });
+
+    // Remove after 2 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toast.remove();
+        }, 300); // Match CSS transition duration
+    }, 2000);
+}
