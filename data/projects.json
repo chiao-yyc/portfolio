@@ -1,10 +1,36 @@
 {
   "sideProjects": [
     {
+      "name": "電商後台管理平台",
+      "period": "",
+      "status": "Monorepo / Full-stack",
+      "statusColor": "blue",
+      "description": "企業級電商後台管理系統",
+      "detailedDescription": "包含訂單管理、庫存追蹤、客戶關係管理與數據分析完整功能。採用 Monorepo 統一管理前後端，整合 Supabase 自架實例，實現企業級資料安全與效能優化。",
+      "demoNote": "測試帳號參照 GitHub README",
+      "tags": ["Vue 3", "Supabase", "PostgreSQL", "shadcn/ui"],
+      "concepts": ["Monorepo", "System Architecture", "Full-stack"],
+      "media": {
+        "front": {
+          "type": "image",
+          "src": "./assets/ec_admin.png"
+        },
+        "overlay": {
+          "type": "video",
+          "thumbnail": "./assets/ec_admin.png",
+          "videoSrc": "./assets/ec_admin_demo.mp4"
+        }
+      },
+      "links": {
+        "github": "https://github.com/chiao-yyc/ecommerce-dashboard_showcase",
+        "website": "https://ecadmin.yachiaoyang.dev"
+      }
+    },
+        {
       "name": "D3 Component Kit",
-      "period": "2024/06 - 2024/09",
-      "status": "In Progress",
-      "statusColor": "green",
+      "period": "",
+      "status": "CLI Tool / DX",
+      "statusColor": "purple",
       "description": "受 shadcn/ui 啟發的 D3.js 圖表元件庫",
       "detailedDescription": "透過 CLI 工具提供可複製貼上的圖表元件，讓開發者完全掌控程式碼。採用 shadcn/ui 的設計哲學，專注於開發者體驗與元件可組合性，降低 D3.js 學習曲線。",
       "tags": ["D3.js", "TypeScript", "CLI", "React"],
@@ -21,42 +47,18 @@
         }
       },
       "links": {
-        "github": "https://github.com/chiaoyyc",
+        "github": "https://github.com/chiao-yyc/d3-components-library",
         "website": "https://d3comp.yachiaoyang.dev"
       }
     },
     {
-      "name": "電商後台管理平台",
-      "period": "2024/06 - 2024/09",
-      "status": "#AIassisted",
-      "statusColor": "blue",
-      "description": "企業級全端電商後台，Monorepo 架構",
-      "detailedDescription": "包含訂單管理、庫存追蹤、客戶關係管理與數據分析完整功能。採用 Monorepo 統一管理前後端，整合 Supabase 自架實例，實現企業級資料安全與效能優化。",
-      "tags": ["Vue 3", "Supabase", "PostgreSQL", "shadcn/ui"],
-      "concepts": ["Monorepo", "System Architecture", "Full-stack"],
-      "media": {
-        "front": {
-          "type": "image",
-          "src": "./assets/ec_admin.png"
-        },
-        "overlay": {
-          "type": "video",
-          "thumbnail": "./assets/ec_admin.png",
-          "videoSrc": "./assets/ec_admin_demo.mp4"
-        }
-      },
-      "links": {
-        "github": "https://github.com/chiaoyyc",
-        "website": "https://ecadmin.yachiaoyang.dev"
-      }
-    },
-    {
       "name": "Job Tracker 求職助理",
-      "period": "2024/06 - 2024/09",
-      "status": "#VibeCode",
+      "period": "",
+      "status": "Automation / Scraping",
       "statusColor": "green",
       "description": "為求職者打造的智慧管理系統",
-      "detailedDescription": "整合職缺爬蟲、自動化合適度分析與偏好推薦，搭配完整的申請流程追蹤（感興趣 → 申請 → 面試 → 結果），提升求職效率。使用 Puppeteer 實現穩定的網頁爬蟲，Prisma 管理資料建模。",
+      "detailedDescription": "整合職缺爬蟲、自動化合適度分析與偏好推薦，搭配完整的申請流程追蹤（感興趣 → 申請 → 面試 → 結果），提升求職效率。",
+      "demoNote": "測試帳號：demo@example.com / demo1234",
       "tags": ["Node.js", "Express", "Puppeteer", "Prisma"],
       "concepts": ["Web Scraping", "Automation", "User Journey"],
       "media": {
@@ -71,7 +73,6 @@
         }
       },
       "links": {
-        "github": "",
         "website": "https://jobtracker.yachiaoyang.dev"
       }
     }

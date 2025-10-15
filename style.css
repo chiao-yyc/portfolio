@@ -1679,7 +1679,7 @@ body.light-mode .work-card:hover {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     overflow: hidden;
 }
 
@@ -1701,12 +1701,25 @@ body.light-mode .work-card:hover {
 
 .achievements-content p {
     margin-bottom: 0.5rem;
-    padding-left: 1.2em;
-    text-indent: -1.2em;
 }
 
 .achievements-content p:last-child {
     margin-bottom: 0;
+}
+
+/* Demo Note - 測試帳號備註 */
+.demo-note {
+    flex-shrink: 0;
+    margin-top: auto;
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
+}
+
+.demo-note p {
+    text-align: center;
+    font-size: 0.6875rem;  /* 11px - 更小的字 */
+    color: rgb(107, 114, 128);
+    letter-spacing: 0.01em;
 }
 
 /* Links 區塊（底部對齊，含分隔線） */
@@ -1836,6 +1849,10 @@ body.light-mode .achievements-title {
 
 body.light-mode .achievements-content {
     color: rgb(75, 85, 99);
+}
+
+body.light-mode .demo-note p {
+    color: rgb(107, 114, 128);
 }
 
 body.light-mode .links-section {
