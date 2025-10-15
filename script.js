@@ -399,7 +399,7 @@ function initExperienceHorizontalScroll() {
             linksHTML += `<a href="${project.links.github}" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm font-medium">GitHub →</a>`;
         }
         if (project.links.website) {
-            linksHTML += `<a href="${project.links.website}" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm font-medium ml-3">Website →</a>`;
+            linksHTML += `<a href="${project.links.website}" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm font-medium ml-3">Demo →</a>`;
         }
 
         // Front image HTML with overlay
@@ -478,11 +478,16 @@ function initExperienceHorizontalScroll() {
 
                     <!-- Detailed Description -->
                     <div class="achievements-section">
-                        <h4 class="achievements-title">About This Project</h4>
+                        <h4 class="achievements-title">About</h4>
                         <div class="achievements-content">
                             <p>${project.detailedDescription}</p>
                         </div>
                     </div>
+
+                    <!-- Demo Note -->
+                    ${project.demoNote ? `<div class="demo-note">
+                        <p>${project.demoNote}</p>
+                    </div>` : ''}
 
                     <!-- Links -->
                     ${linksHTML ? `<div class="links-section">${linksHTML}</div>` : ''}
