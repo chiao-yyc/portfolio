@@ -224,14 +224,14 @@ function initExperienceHorizontalScroll() {
         const virtualHeight = window.innerHeight + horizontalScrollWidth;
         wrapper.style.height = `${virtualHeight}px`;
 
-        console.log('✅ 水平滾動初始化（含磁吸居中）:', {
-            containerWidth,
-            cardWidth,
-            sidePadding,
-            horizontalScrollWidth,
-            virtualHeight,
-            viewportHeight: window.innerHeight
-        });
+        // console.log('✅ 水平滾動初始化（含磁吸居中）:', {
+        //     containerWidth,
+        //     cardWidth,
+        //     sidePadding,
+        //     horizontalScrollWidth,
+        //     virtualHeight,
+        //     viewportHeight: window.innerHeight
+        // });
     }
 
     // Handle scroll - sync vertical scroll to horizontal position

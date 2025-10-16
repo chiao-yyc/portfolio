@@ -804,8 +804,8 @@ body.light-mode .terminal-content::-webkit-scrollbar-thumb:active {
     }
 
     .font-mono pre {
-        white-space: pre;
-        word-break: break-all;
+        white-space: pre-wrap;
+        word-break: break-word;
     }
 }
 
