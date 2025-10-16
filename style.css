@@ -1676,6 +1676,7 @@ body.light-mode .work-card:hover {
 
 /* Achievements 區塊 */
 .achievements-section {
+    margin-top: 5rem;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -1817,7 +1818,8 @@ body.light-mode .side-project-card:hover .card-image-front {
 }
 
 body.light-mode .image-overlay {
-    background: rgba(0, 0, 0, 0.45);
+    /* background: rgba(0, 0, 0, 0.45); */
+    background: rgba(193, 193, 193, 0.45);
 }
 
 body.light-mode .work-card {

@@ -415,6 +415,7 @@ function initExperienceHorizontalScroll() {
 
         // Overlay media HTML (for card back) - supports both image and video
         let overlayMediaHTML = '';
+        /**
         if (project.media?.overlay) {
             const overlay = project.media.overlay;
             if (overlay.type === 'video') {
@@ -436,6 +437,7 @@ function initExperienceHorizontalScroll() {
                 `;
             }
         }
+         */
 
         return `
             <div class="work-card side-project-card">
